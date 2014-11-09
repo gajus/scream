@@ -5,7 +5,7 @@
 [![NPM version](https://badge.fury.io/js/scream.svg)](http://badge.fury.io/js/scream)
 [![Bower version](https://badge.fury.io/bo/scream.svg)](http://badge.fury.io/bo/scream)
 
-Viewport management for iOS. Manage `viewport` in different states of device orientation; calculate the dimensions of the "minimal" view relative to your viewport width.
+Viewport management for mobile. Manage `viewport` in different states of device orientation. Scale document to fit viewport. Calculate the dimensions of the "minimal" iOS 8 view relative to your viewport width.
 
 ## Managing the Viewport
 
