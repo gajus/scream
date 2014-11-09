@@ -132,7 +132,7 @@ Scream = function Scream (config) {
     /**
      * Returns true if screen is in "minimal" UI.
      *
-     * iOS 8 has removed the minimal-ui as a viewport property.
+     * iOS 8 has removed the minimal-ui viewport property.
      * Nevertheless, user can enter minimal-ui using touch-drag-down gesture.
      * This method is used to detect if user is in minimal-ui view.
      * 

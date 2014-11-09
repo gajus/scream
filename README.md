@@ -36,7 +36,7 @@ Scream generates the `viewport` meta tag to reflect the present orientation and 
 | `width.portrait` | Viewport width in the portrait orientation. | `screen.width` (`device-width`) |
 | `width.landscape` | Viewport width in the landscape orientation. | `screen.width` (`device-width`) |
 
-### Minimal View
+## Minimal View
 
 This functionality is iOS 8 specific. It has been developed as part of [Brim](https://github.com/gajus/brim) to bring back the minimal-ui.
 
@@ -53,13 +53,13 @@ scream.getMinimalViewSize();
 /**
  * Returns true if screen is in "minimal" UI.
  *
- * iOS 8 has removed the minimal-ui as a viewport property.
+ * iOS 8 has removed the minimal-ui viewport property.
  * Nevertheless, user can enter minimal-ui using touch-drag-down gesture.
  * This method is used to detect if user is in minimal-ui view.
  * 
  * @return {Boolean}
  */
-scream.isMinimalView()
+scream.isMinimalView();
 ```
 
 ## Download
