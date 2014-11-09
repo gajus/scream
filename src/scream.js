@@ -22,7 +22,7 @@ Scream = function Scream (config) {
     }
 
     /**
-     * Returns height of the available viewport in the minimal view relative to the current viewport width.
+     * Returns height of the usable viewport in the minimal view relative to the current viewport width.
      * 
      * @see http://stackoverflow.com/questions/26827822/how-is-the-window-innerheight-derived-of-the-minimal-view/26827842
      * @see http://stackoverflow.com/questions/26801943/how-to-get-the-window-size-of-fullscream-view-when-not-in-fullscream
@@ -113,7 +113,11 @@ Scream = function Scream (config) {
     };
 
     /**
-     * @return {Object}
+     * Returns dimensions of the usable viewport in the minimal view relative to the current viewport width and orientation.
+     * 
+     * @return {Object} dimensions
+     * @return {Number} dimensions.width
+     * @return {Number} dimensions.height
      */
     scream.getMinimalViewSize = function () {
         var width = scream.getViewportWidth(),
@@ -126,12 +130,16 @@ Scream = function Scream (config) {
     };
 
     /**
-     * When checking if view is in minimal state, it is enough to check the height,
-     * because the viewport is width based.
+     * Returns true if screen is in "minimal" UI.
+     *
+     * iOS 8 has removed the minimal-ui as a viewport property.
+     * Nevertheless, user can enter minimal-ui using touch-drag-down gesture.
+     * This method is used to detect if user is in minimal-ui view.
      * 
      * @return {Boolean}
      */
     scream.isMinimalView = function () {
+        // It is enough to check the height, because the viewport is based on width.
         return global.innerHeight == scream.getMinimalViewSize().height;
     };
 };
