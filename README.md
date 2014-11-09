@@ -34,6 +34,20 @@ Scream generates the `viewport` meta tag to reflect the present orientation and 
 | `width.portrait` | Viewport width in the portrait orientation. | `screen.width` (`device-width`) |
 | `width.landscape` | Viewport width in the landscape orientation. | `screen.width` (`device-width`) |
 
+## Orientation Change
+
+> The `orientationchangeend` event is fired when the orientation of the device has changed and the associated rotation animation has been complete.
+
+– https://github.com/gajus/orientationchangeend
+
+Scream is using `orientationchangeend` internally to set the viewport tag. This is proxy for your convenience to perform operations that must follow the change of the device orientation and in the context of updated viewport tag.
+
+```js
+scream.on('orientationchangeend', function () {
+    // Invoked when the orientation change and associated animation (iOS) has been completed.
+});
+```
+
 ## Screen
 
 ```js

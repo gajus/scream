@@ -322,6 +322,11 @@ Scream = function Scream (config) {
     };
 
     OCE.on('orientationchangeend', scream._updateViewport);
+
+    // Scream is using `orientationchangeend` internally to set the viewport tag.
+    // This is proxy for your convenience to perform operations that must follow
+    // the change of the device orientation and in the context of updated viewport tag.
+    scream.on = OCE.on;
 };
 
 global.gajus = global.gajus || {};
