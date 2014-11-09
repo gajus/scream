@@ -9,7 +9,7 @@ Viewport management for mobile. Manage `viewport` in different states of device 
 
 ## Managing the Viewport
 
-Configure the dimensions of the viewport at the time of the initialization:
+Configure dimensions of the viewport at the time of the initialization:
 
 ```js
 var scream = Scream({
@@ -20,7 +20,18 @@ var scream = Scream({
 });
 ```
 
-## Configuration
+Scream generates the `viewport` meta tag to reflect the present orientation and in response to the [`orientationchangeend`](https://github.com/gajus/orientationchangeend) event.
+
+```html
+<meta name="viewport" content="width=WIDTH,initial-scale=SCALE,minimum-scale=SCALE,maximum-scale=SCALE,user-scale=0">
+```
+
+`WIDTH` and `SCALE` are dynamic values that will change depending on the predefined viewport width and device orientation.
+
+* `WIDTH` the width set in the `Scream` configuration for the current orientation.
+* `SCALE` automatically calculated scale needed to fit content in the screen.
+
+### Configuration
 
 | Name | Description | Default |
 | --- | --- | --- |
