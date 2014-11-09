@@ -14,11 +14,11 @@ Scream = function Scream (config) {
     config.width = config.width || {};
 
     if (!config.width.portrait) {
-        throw new Error('Must configure config.width.portrait.');
+        config.width.portrait = global.screen.width;
     }
 
     if (!config.width.landscape) {
-        throw new Error('Must configure config.width.landscape.');
+        config.width.landscape = global.screen.width;
     }
 
     /**

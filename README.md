@@ -9,7 +9,7 @@ Viewport management for mobile. Manage `viewport` in different states of device 
 
 ## Managing the Viewport
 
-When you initialize Scream, you can set viewport width for the different 
+Configure the dimensions of the viewport at the time of the initialization:
 
 ```js
 var scream = Scream({
@@ -20,18 +20,12 @@ var scream = Scream({
 });
 ```
 
-When you initialize Scream, you can setup `width` of the `portrait` and `landscape` view.
+## Configuration
 
-Scream generates a `viewport` meta tag.
-
-```html
-<meta name="viewport" content="width=WIDTH,initial-scale=SCALE,minimum-scale=SCALE,maximum-scale=SCALE,user-scale=0">
-```
-
-`WIDTH` and `SCALE` are dynamic values that will change depending on the predefined viewport width and device orientation.
-
-* `WIDTH` the width set in the `Scream` configuration for the current orientation.
-* `SCALE` automatically calculated scale needed to fit content in the screen.
+| Name | Description | Default |
+| --- | --- | --- |
+| `width.portrait` | Viewport width in the portrait orientation. | `screen.width` (`device-width`) |
+| `width.landscape` | Viewport width in the landscape orientation. | `screen.width` (`device-width`) |
 
 ## Download
 
