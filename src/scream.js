@@ -66,7 +66,10 @@ Scream = function Scream (config) {
     };
 
     /**
-     * 
+     * Generates a viewport tag reflecting the content width relative to the device orientation
+     * and scale required to fit the content in the viewport.
+     *
+     * Appends the tag to the document.head and removes the preceding additions.
      */
     scream.updateViewport = function () {
         var oldViewport,
