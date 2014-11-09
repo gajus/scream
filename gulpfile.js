@@ -21,7 +21,7 @@ gulp.task('clean', ['lint'], function (cb) {
 
 gulp.task('bundle', ['clean'], function () {
     return gulp
-        .src('./src/lens.js')
+        .src('./src/scream.js')
         .pipe(browserify({
             //debug : true
         }))

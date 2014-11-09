@@ -12,7 +12,7 @@
   "author": "Gajus Kuizinas <gk@anuary.com>",
   "repository": {
     "type": "git",
-    "url": "https://github.com/gajus/scream.js"
+    "url": "https://github.com/gajus/scream"
   },
   "license": "BSD-3-Clause",
   "devDependencies": {
@@ -27,6 +27,7 @@
     "jsonfile": "^2.0.0"
   },
   "dependencies": {
+    "orientationchangeend": "^1.1.2",
     "platform": "^1.2.0"
   }
 }

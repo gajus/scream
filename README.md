@@ -1,7 +1,5 @@
 # Scream
 
-<!--[![Build Status](https://travis-ci.org/gajus/scream.png?branch=master)](https://travis-ci.org/gajus/scream)-->
-
 [![NPM version](https://badge.fury.io/js/scream.svg)](http://badge.fury.io/js/scream)
 [![Bower version](https://badge.fury.io/bo/scream.svg)](http://badge.fury.io/bo/scream)
 
@@ -35,6 +33,54 @@ Scream generates the `viewport` meta tag to reflect the present orientation and 
 | --- | --- | --- |
 | `width.portrait` | Viewport width in the portrait orientation. | `screen.width` (`device-width`) |
 | `width.landscape` | Viewport width in the landscape orientation. | `screen.width` (`device-width`) |
+
+## Screen
+
+```js
+/**
+ * @return {String} portrait|landscape
+ */
+scream.getOrientation();
+
+/**
+ * Screen width relative to the device orientation.
+ *
+ * @return {Number}
+ */
+scream.getScreenWidth();
+
+/**
+ * Screen width relative to the device orientation.
+ *
+ * @return {Number}
+ */
+scream.getScreenHeight();
+```
+
+## Viewport
+
+```js
+/**
+ * Viewport width relative to the device orientation.
+ * 
+ * @return {Number}
+ */
+scream.getViewportWidth();
+
+/**
+ * Viewport height relative to the device orientation and to scale with the viewport width.
+ *
+ * @return {Number}
+ */
+scream.getViewportHeight();
+
+/**
+ * The ratio between screen width and viewport width.
+ *
+ * @return {Number}
+ */
+scream.getScale();
+```
 
 ## Minimal View
 

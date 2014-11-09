@@ -1,4 +1,5 @@
 var Scream,
+    OCE = require('orientationchangeend')();
     
 Scream = function Scream (config) {
     var scream;
@@ -28,7 +29,7 @@ Scream = function Scream (config) {
      * @see http://stackoverflow.com/questions/26801943/how-to-get-the-window-size-of-fullscream-view-when-not-in-fullscream
      * @return {Number}
      */
-    scream.getMinimalViewHeight = function () {
+    scream._getMinimalViewHeight = function () {
         var portrait = Math.round((scream.getViewportWidth() * 4228) / 2560),
             landscape = scream.getViewportHeight();
 
@@ -44,6 +45,8 @@ Scream = function Scream (config) {
 
     /**
      * Screen width relative to the device orientation.
+     * 
+     * @return {Number}
      */
     scream.getScreenWidth = function () {
         return global.screen[scream.getOrientation() === 'portrait' ? 'width' : 'height'];
@@ -51,13 +54,15 @@ Scream = function Scream (config) {
 
     /**
      * Screen width relative to the device orientation.
+     * 
+     * @return {Number}
      */
     scream.getScreenHeight = function () {
         return global.screen[scream.getOrientation() === 'portrait' ? 'height' : 'width'];
     };
 
     /**
-     * The ration between screen width and viewport width.
+     * The ratio between screen width and viewport width.
      *
      * @return {Number}
      */
@@ -71,7 +76,7 @@ Scream = function Scream (config) {
      *
      * Appends the tag to the document.head and removes the preceding additions.
      */
-    scream.updateViewport = function () {
+    scream._updateViewport = function () {
         var oldViewport,
             viewport,
             width,
@@ -103,6 +108,8 @@ Scream = function Scream (config) {
 
     /**
      * Viewport width relative to the device orientation.
+     *
+     * @return {Number}
      */
     scream.getViewportWidth = function () {
         return config.width[scream.getOrientation()];
@@ -110,6 +117,8 @@ Scream = function Scream (config) {
 
     /**
      * Viewport height relative to the device orientation and to scale with the viewport width.
+     *
+     * @return {Number}
      */
     scream.getViewportHeight = function () {
         return Math.round(scream.getScreenHeight() / scream.getScale());
@@ -124,7 +133,7 @@ Scream = function Scream (config) {
      */
     scream.getMinimalViewSize = function () {
         var width = scream.getViewportWidth(),
-            height = scream.getMinimalViewHeight();
+            height = scream._getMinimalViewHeight();
 
         return {
             width: width,
@@ -145,6 +154,8 @@ Scream = function Scream (config) {
         // It is enough to check the height, because the viewport is based on width.
         return global.innerHeight == scream.getMinimalViewSize().height;
     };
+
+    OCE.on('orientationchangeend', scream._updateViewport);
 };
 
 global.gajus = global.gajus || {};
