@@ -1,12 +1,15 @@
 # Scream
 
-[![Build Status](https://travis-ci.org/gajus/scream.png?branch=master)](https://travis-ci.org/gajus/scream)
+<!--[![Build Status](https://travis-ci.org/gajus/scream.png?branch=master)](https://travis-ci.org/gajus/scream)-->
+
 [![NPM version](https://badge.fury.io/js/scream.svg)](http://badge.fury.io/js/scream)
 [![Bower version](https://badge.fury.io/bo/scream.svg)](http://badge.fury.io/bo/scream)
 
-Documentation in progress. Stay tuned.
+Viewport management for iOS. Manage `viewport` in different states of device orientation; calculate the dimensions of the "minimal" view relative to your viewport width.
 
 ## Managing the Viewport
+
+When you initialize Scream, you can set viewport width for the different 
 
 ```js
 var scream = Scream({
