@@ -40,7 +40,7 @@ Scream generates the `viewport` meta tag to reflect the present orientation and 
 
 This is iOS 8 specific.
 
-### `isMinimalView`
+#### `isMinimalView`
 
 Returns true if screen is in "minimal" UI.
 
@@ -52,7 +52,7 @@ iOS 8 has removed the minimal-ui as a viewport property.
 Nevertheless, user can enter minimal-ui using touch-drag-down gesture.
 This method is used to detect if user is in minimal-ui view.
 
-### `getMinimalViewSize`
+#### `getMinimalViewSize`
 
 Returns dimensions of the usable viewport in the minimal view relative to the current viewport width and orientation.
 
