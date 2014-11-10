@@ -5,6 +5,8 @@
 
 Dynamic viewport management for mobile. Manage `viewport` in different states of device orientation. Scale document to fit viewport. Calculate the dimensions of the "minimal" iOS 8 view relative to your viewport width.
 
+[!Demonstration using iOS simulator](./.readme/demonstration.gif)
+
 ## Managing the Viewport
 
 Configure dimensions of the viewport at the time of the initialization:
