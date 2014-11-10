@@ -1,6 +1,6 @@
 {
   "name": "scream",
-  "description": "Viewport management for mobile. Manage viewport in different states of device orientation. Scale document to fit viewport. Calculate the dimensions of the minimal iOS 8 view relative to your viewport width.",
+  "description": "Dynamic viewport management for mobile. Manage viewport in different states of device orientation. Scale document to fit viewport. Calculate the dimensions of the minimal iOS 8 view relative to your viewport width.",
   "keywords": [
     "viewport",
     "fullscreen",
