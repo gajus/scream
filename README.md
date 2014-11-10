@@ -34,17 +34,19 @@ Scream generates the `viewport` meta tag to reflect the present orientation and 
 | `width.portrait` | Viewport width in the portrait orientation. | `screen.width` (`device-width`) |
 | `width.landscape` | Viewport width in the landscape orientation. | `screen.width` (`device-width`) |
 
-## Orientation Change
+## Events
+
+### Orientation Change
 
 > The `orientationchangeend` event is fired when the orientation of the device has changed and the associated rotation animation has been complete.
 
 – https://github.com/gajus/orientationchangeend
 
-Scream is using `orientationchangeend` internally to set the viewport tag. This is proxy for your convenience to perform operations that must follow the change of the device orientation and in the context of updated viewport tag.
+This is proxy for your convenience to perform operations that must follow the change of the device orientation and in the context of updated viewport tag. This is required when determining the view state.
 
 ```js
 scream.on('orientationchangeend', function () {
-    // Invoked when the orientation change and associated animation (iOS) has been completed.
+    // Invoked after the orientation change and the associated animation (iOS) has been completed.
 });
 ```
 
@@ -116,6 +118,9 @@ scream.getMinimalViewSize();
  * iOS 8 has removed the minimal-ui viewport property.
  * Nevertheless, user can enter minimal-ui using touch-drag-down gesture.
  * This method is used to detect if user is in minimal-ui view.
+ *
+ * In case of orientation change, the state of the view can be accurately
+ * determined only after orientationchangeend event.
  * 
  * @return {Boolean}
  */

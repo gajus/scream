@@ -313,6 +313,9 @@ Scream = function Scream (config) {
      * iOS 8 has removed the minimal-ui viewport property.
      * Nevertheless, user can enter minimal-ui using touch-drag-down gesture.
      * This method is used to detect if user is in minimal-ui view.
+     *
+     * In case of orientation change, the state of the view can be accurately
+     * determined only after orientationchangeend event.
      * 
      * @return {Boolean}
      */
@@ -321,7 +324,13 @@ Scream = function Scream (config) {
         return global.innerHeight == scream.getMinimalViewSize().height;
     };
 
+    scream._updateViewport();
+
     OCE.on('orientationchangeend', scream._updateViewport);
+
+    global.addEventListener('orientationchange', function () {
+        scream._updateViewport();
+    });
 
     // Scream is using `orientationchangeend` internally to set the viewport tag.
     // This is proxy for your convenience to perform operations that must follow

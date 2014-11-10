@@ -6,16 +6,53 @@
     <script src="./../dist/scream.js"></script>
 </head>
 <body>
-    <div id="main">
-    b
-    </div>
+    <dl>
+        <dt>Orientation</dt>
+        <dd data-name="orientation"></dd>
+
+        <dt>Viewport Width</dt>
+        <dd data-name="viewport-width"></dd>
+
+        <dt>Viewport Height</dt>
+        <dd data-name="viewport-height"></dd>
+
+        <dt>Scale</dt>
+        <dd data-name="scale"></dd>
+
+        <dt>Is Minimal View?</dt>
+        <dd data-name="is-minimal-view"></dd>
+    </dl>
     
+    <div id="buffer"></div>
+
     <script>
-    var scream = gajus.Scream({
+    var scream,
+        updateInfo;
+
+    scream = gajus.Scream({
         width: {
             portrait: 320,
-            landscape: 320 * 6
+            landscape: 586
         }
+    });
+
+    updateInfo = function () {
+        document.querySelector('dd[data-name="orientation"]').innerText = scream.getOrientation();
+        document.querySelector('dd[data-name="viewport-width"]').innerText = scream.getViewportWidth();
+        document.querySelector('dd[data-name="viewport-height"]').innerText = scream.getViewportHeight();
+        document.querySelector('dd[data-name="scale"]').innerText = scream.getScale().toFixed(4);
+        document.querySelector('dd[data-name="is-minimal-view"]').innerText = scream.isMinimalView() ? 'yes' : 'no';
+    };
+
+    updateInfo();
+
+    window.addEventListener('resize', function () {
+        // Used to capture entering/leaving the minimal view.
+        updateInfo();
+    });
+
+    scream.on('orientationchangeend', function () {
+        updateInfo();
     });
     </script>
 </body>

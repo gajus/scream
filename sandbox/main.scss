@@ -1,12 +1,36 @@
 html,
-body {
+body,
+dl,
+dt,
+dd {
     margin: 0; padding: 0;
 }
 
-#main {
-    background: #666; height: 900000000px; width: 320px;
+* {
+    box-sizing: border-box;
 }
 
-#test {
-    background: #f00;
+body {
+    font: normal 16px/25px 'Helvetica Neue', Helvetica, Arial, freesans, sans-serif; background: #F9BF3B;
+}
+
+dl {
+    width: 300px; background: #fff; padding: 10px; position: fixed; left: 50%; top: 50%; margin-left: -150px; margin-top: -100px; pointer-events: none;
+
+    dt,
+    dd {
+        font-size: 16px;
+    }
+
+    dt {
+        float: left; width: 200px; clear: both; font-weight: bold;
+    }
+
+    dd {
+        margin: 0 0 0 200px;
+    }
+}
+
+#buffer {
+    height: 2000px;
 }
