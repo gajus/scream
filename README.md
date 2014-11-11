@@ -52,6 +52,17 @@ scream.on('orientationchangeend', function () {
 });
 ```
 
+### View Change
+
+Invoked when view changes.
+
+```js
+scream.on('viewchange', function (e) {
+    // @var {String} 'full', 'minimal'
+    e.viewName;
+});
+```
+
 ## Screen
 
 ```js

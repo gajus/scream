@@ -165,16 +165,21 @@ module.exports = Sister;
 },{}],3:[function(require,module,exports){
 (function (global){
 var Scream,
+    Sister = require('sister'),
     OCE = require('orientationchangeend')();
     
 Scream = function Scream (config) {
-    var scream;
+    var scream,
+        eventEmitter,
+        lastView;
 
     if (!(this instanceof Scream)) {
         return new Scream(config);
     }
 
     scream = this;
+
+    eventEmitter = Sister();
 
     config = config || {};
 
@@ -370,18 +375,44 @@ Scream = function Scream (config) {
         return global.innerHeight == scream.getMinimalViewSize().height;
     };
 
+    /**
+     * 
+     */
+    scream._detectViewChange = function () {
+        var currentView = scream.isMinimalView() ? 'minimal' : 'full';
+
+        if (lastView != currentView) {
+            eventEmitter.trigger('viewchange');
+
+            lastView = currentView;
+        }
+    };
+
     scream._updateViewport();
 
-    OCE.on('orientationchangeend', scream._updateViewport);
+    lastView = scream.isMinimalView() ? 'minimal' : 'full';
+
+    OCE.on('orientationchangeend', function () {
+        scream._updateViewport();
+        scream._detectViewChange();
+
+        eventEmitter.trigger('orientationchangeend');
+    });
 
     global.addEventListener('orientationchange', function () {
         scream._updateViewport();
     });
 
-    // Scream is using `orientationchangeend` internally to set the viewport tag.
-    // This is proxy for your convenience to perform operations that must follow
-    // the change of the device orientation and in the context of updated viewport tag.
-    scream.on = OCE.on;
+    global.addEventListener('resize', function () {
+        scream._detectViewChange();
+    });
+
+    // iPhone 6 plus does not trigger resize event when leaving the minimal-ui in the landscape orientation.
+    global.addEventListener('scroll', function () {
+        scream._detectViewChange();
+    });
+
+    scream.on = eventEmitter.on;
 };
 
 global.gajus = global.gajus || {};
@@ -389,4 +420,4 @@ global.gajus.Scream = Scream;
 
 module.exports = Scream;
 }).call(this,typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"orientationchangeend":1}]},{},[3])
+},{"orientationchangeend":1,"sister":2}]},{},[3])

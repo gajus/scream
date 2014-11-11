@@ -46,16 +46,11 @@
 
     updateInfo();
 
-    window.addEventListener('scroll', function () {
-        // iPhone 6 plus does not trigger resize event when leaving the minimal-ui in the landscape orientation.
-        updateInfo();
-    });
-
-    window.addEventListener('resize', function () {
-        updateInfo();
-    });
-
     scream.on('orientationchangeend', function () {
+        updateInfo();
+    });
+
+    scream.on('viewchange', function () {
         updateInfo();
     });
     </script>

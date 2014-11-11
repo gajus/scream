@@ -28,6 +28,7 @@
   },
   "dependencies": {
     "orientationchangeend": "^1.1.2",
-    "platform": "^1.2.0"
+    "platform": "^1.2.0",
+    "sister": "^3.0.0"
   }
 }
