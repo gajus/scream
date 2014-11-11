@@ -1,0 +1,29 @@
+iPhone 6 plus
+
+screen.width        414
+screen.height       736
+devicePixelRatio    3
+
+
+When    scale=1.0,
+        viewport-width=414,
+        view=full
+
+innerWidth          414
+innerHeight         628
+
+
+When    scale=1.0,
+        viewport-width=414,
+        view=minimal
+
+innerWidth          414
+innerHeight         696
+
+
+When    scale=0.25,
+        viewport-width=1656,
+        view=minimal
+
+innerWidth          1656
+innerHeight         2785

@@ -1,0 +1,29 @@
+iPad Air
+
+screen.width        768
+screen.height       1024
+devicePixelRatio    2
+
+
+When    scale=1.0,
+        viewport-width=768,
+        view=full
+
+innerWidth          768
+innerHeight         928
+
+
+When    scale=1.0,
+        viewport-width=768,
+        view=minimal
+
+innerWidth          768
+innerHeight         985
+
+
+When    scale=0.25,
+        viewport-width=3072,
+        view=minimal
+
+innerWidth          3072
+innerHeight         3938

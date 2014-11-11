@@ -8,6 +8,8 @@ Scream = function Scream (config) {
         return new Scream(config);
     }
 
+
+
     scream = this;
 
     config = config || {};
@@ -23,17 +25,30 @@ Scream = function Scream (config) {
     }
 
     /**
-     * Returns height of the usable viewport in the minimal view relative to the current viewport width.
-     * 
-     * @see http://stackoverflow.com/questions/26827822/how-is-the-window-innerheight-derived-of-the-minimal-view/26827842
-     * @see http://stackoverflow.com/questions/26801943/how-to-get-the-window-size-of-fullscream-view-when-not-in-fullscream
+     * Viewport width relative to the device orientation.
+     *
      * @return {Number}
      */
-    scream._getMinimalViewHeight = function () {
-        var portrait = Math.round((scream.getViewportWidth() * 4228) / 2560),
-            landscape = scream.getViewportHeight();
+    scream.getViewportWidth = function () {
+        return config.width[scream.getOrientation()];
+    };
 
-        return scream.getOrientation() === 'portrait' ? portrait : landscape;
+    /**
+     * Viewport height relative to the device orientation and to scale with the viewport width.
+     *
+     * @return {Number}
+     */
+    scream.getViewportHeight = function () {
+        return Math.round(scream.getScreenHeight() / scream.getScale());
+    };
+
+    /**
+     * The ratio between screen width and viewport width.
+     *
+     * @return {Number}
+     */
+    scream.getScale = function () {
+        return scream.getScreenWidth()/scream.getViewportWidth();
     };
 
     /**
@@ -59,15 +74,6 @@ Scream = function Scream (config) {
      */
     scream.getScreenHeight = function () {
         return global.screen[scream.getOrientation() === 'portrait' ? 'height' : 'width'];
-    };
-
-    /**
-     * The ratio between screen width and viewport width.
-     *
-     * @return {Number}
-     */
-    scream.getScale = function () {
-        return scream.getScreenWidth()/scream.getViewportWidth();
     };
 
     /**
@@ -97,31 +103,52 @@ Scream = function Scream (config) {
         viewport.name = 'viewport';
         viewport.content = content;
 
-        oldViewport = global.window.document.head.querySelector('meta[name="viewport"]');
+        oldViewport = global.document.head.querySelector('meta[name="viewport"]');
 
         if (oldViewport) {
             oldViewport.parentNode.removeChild(oldViewport);
         }
 
-        global.window.document.head.appendChild(viewport);
+        global.document.head.appendChild(viewport);
     };
 
     /**
-     * Viewport width relative to the device orientation.
-     *
+     * Returns height of the usable viewport in the minimal view relative to the current viewport width.
+     * 
+     * @see http://stackoverflow.com/questions/26827822/how-is-the-window-innerheight-derived-of-the-minimal-view/26827842
+     * @see http://stackoverflow.com/questions/26801943/how-to-get-the-window-size-of-fullscream-view-when-not-in-fullscream
      * @return {Number}
      */
-    scream.getViewportWidth = function () {
-        return config.width[scream.getOrientation()];
-    };
+    scream._getMinimalViewHeight = function () {
+        var spec,
+            i;
 
-    /**
-     * Viewport height relative to the device orientation and to scale with the viewport width.
-     *
-     * @return {Number}
-     */
-    scream.getViewportHeight = function () {
-        return Math.round(scream.getScreenHeight() / scream.getScale());
+        if (scream.getOrientation() === 'portrait') {
+            return scream.getViewportHeight();
+        }
+
+        spec = [
+            // @see ./.spec/
+            // [window.innerHeight when scale 0.25, screen.width, screen.height, devicePixelRatio, name]
+            [1762, 320, 480, 2, 'iPhone 4'],
+            [2114, 320, 568, 2, 'iPhone 5'],
+            [2114, 320, 568, 2, 'iPhone 5s'],
+            [2510, 327, 667, 2, 'iPhone 6'],
+            [2785, 414, 736, 3, 'iPhone 6 plus'],
+            [3936, 768, 1024, 1, 'iPad 2'],
+            [3938, 768, 1024, 2, 'iPad Air'],
+            [3938, 768, 1024, 2, 'iPad Retina']
+        ];
+
+        i = spec.length;
+
+        while (i--) {
+            if (global.screen.width === spec[i][1] && global.screen.width === spec[i][2] && global.devicePixelRatio === spec[i][3]) {
+                return Math.round((scream.getViewportWidth() * spec[i][0]) / (spec[i][1] * 4));
+            }
+        }
+
+        throw new Error('Not a known iOS device. If you are using an iOS device, report it to https://github.com/gajus/scream/issues/1.');
     };
 
     /**
