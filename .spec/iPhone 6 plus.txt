@@ -5,7 +5,8 @@ screen.height       736
 devicePixelRatio    3
 
 
-When    scale=1.0,
+When    orientation=portrait,
+        scale=1,
         viewport-width=414,
         view=full
 
@@ -13,7 +14,8 @@ innerWidth          414
 innerHeight         628
 
 
-When    scale=1.0,
+When    orientation=portrait,
+        scale=1,
         viewport-width=414,
         view=minimal
 
@@ -21,9 +23,28 @@ innerWidth          414
 innerHeight         696
 
 
-When    scale=0.25,
+When    orientation=portrait,
+        scale=0.25,
         viewport-width=1656,
         view=minimal
 
 innerWidth          1656
 innerHeight         2785
+
+
+When    orientation=landscape,
+        scale=1,
+        viewport-width=736,
+        view=minimal
+
+innerWidth          736
+innerHeight         414
+
+
+When    orientation=landscape,
+        scale=0.25,
+        viewport-width=2944,
+        view=minimal
+
+innerWidth          2944
+innerHeight         1656

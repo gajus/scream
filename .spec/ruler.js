@@ -1,4 +1,4 @@
-function viewport (viewportWidth) {
+function viewport (orientation, view, viewportWidth, screenWidth) {
     var oldViewport,
         viewport,
         width,
@@ -6,7 +6,7 @@ function viewport (viewportWidth) {
         content;
 
     width = viewportWidth;
-    scale = screen.width/viewportWidth;
+    scale = screenWidth/viewportWidth;
 
     content = 
          'width=' + width +
@@ -26,6 +26,18 @@ function viewport (viewportWidth) {
     }
 
     window.document.head.appendChild(viewport);
+
+    setTimeout(function () {
+    console.log('\
+When    orientation=' + orientation + ',\n\
+        scale=' + scale + ',\n\
+        viewport-width=' + width + ',\n\
+        view=' + view + '\n\
+\n\
+innerWidth          ' + innerWidth + '\n\
+innerHeight         ' + innerHeight + '\n\
+');
+}, 1000);
 };
 
 // This script is used manually to capture the dimensions of an "i" device in different states.
@@ -38,47 +50,13 @@ screen.height       ' + screen.height + '\n\
 devicePixelRatio    ' + window.devicePixelRatio + '\n\
 ');
 
-// 1. When in full view
 
-viewport(screen.width);
+viewport('portrait', 'full', screen.width, screen.width);
 
-setTimeout(function () {
-    console.log('\
-When    scale=1.0,\n\
-        viewport-width=' + screen.width + ',\n\
-        view=full\n\
-\n\
-innerWidth          ' + innerWidth + '\n\
-innerHeight         ' + innerHeight + '\n\
-');
-}, 1000);
 
-// 2. When in minimal view
+viewport('portrait', 'minimal', screen.width, screen.width);
+viewport('portrait', 'minimal', screen.width * 4, screen.width);
 
-viewport(screen.width);
 
-setTimeout(function () {
-console.log('\
-When    scale=1.0,\n\
-        viewport-width=' + screen.width + ',\n\
-        view=minimal\n\
-\n\
-innerWidth          ' + innerWidth + '\n\
-innerHeight         ' + innerHeight + '\n\
-');
-}, 1000);
-
-// 3. When in minimal view
-
-viewport(screen.width * 4);
-
-setTimeout(function () {
-console.log('\
-When    scale=0.25,\n\
-        viewport-width=' + (screen.width * 4) + ',\n\
-        view=minimal\n\
-\n\
-innerWidth          ' + innerWidth + '\n\
-innerHeight         ' + innerHeight + '\n\
-');
-}, 1000);
+viewport('landscape', 'minimal', screen.height, screen.height);
+viewport('landscape', 'minimal', screen.height * 4, screen.height);

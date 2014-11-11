@@ -1,11 +1,12 @@
-iPhone 5s
+iPhone 5
 
 screen.width        320
 screen.height       568
 devicePixelRatio    2
 
 
-When    scale=1.0,
+When    orientation=portrait,
+        scale=1,
         viewport-width=320,
         view=full
 
@@ -13,17 +14,37 @@ innerWidth          320
 innerHeight         460
 
 
-When    scale=1.0,
-        viewport-width=327,
+When    orientation=portrait,
+        scale=1,
+        viewport-width=320,
         view=minimal
 
 innerWidth          320
 innerHeight         529
 
 
-When    scale=0.25,
+When    orientation=portrait,
+        scale=0.25,
         viewport-width=1280,
         view=minimal
 
 innerWidth          1280
 innerHeight         2114
+
+
+When    orientation=landscape,
+        scale=1,
+        viewport-width=568,
+        view=minimal
+
+innerWidth          568
+innerHeight         320
+
+
+When    orientation=landscape,
+        scale=0.25,
+        viewport-width=2272,
+        view=minimal
+
+innerWidth          2272
+innerHeight         1280

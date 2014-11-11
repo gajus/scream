@@ -1,7 +1,7 @@
-iPhone 5
+iPhone 4s
 
 screen.width        320
-screen.height       568
+screen.height       480
 devicePixelRatio    2
 
 
@@ -11,7 +11,7 @@ When    orientation=portrait,
         view=full
 
 innerWidth          320
-innerHeight         460
+innerHeight         372
 
 
 When    orientation=portrait,
@@ -20,7 +20,7 @@ When    orientation=portrait,
         view=minimal
 
 innerWidth          320
-innerHeight         529
+innerHeight         441
 
 
 When    orientation=portrait,
@@ -29,22 +29,22 @@ When    orientation=portrait,
         view=minimal
 
 innerWidth          1280
-innerHeight         2114
+innerHeight         1762
 
 
 When    orientation=landscape,
         scale=1,
-        viewport-width=568,
+        viewport-width=480,
         view=minimal
 
-innerWidth          568
+innerWidth          480
 innerHeight         320
 
 
 When    orientation=landscape,
         scale=0.25,
-        viewport-width=2272,
+        viewport-width=1920,
         view=minimal
 
-innerWidth          2272
+innerWidth          1920
 innerHeight         1280

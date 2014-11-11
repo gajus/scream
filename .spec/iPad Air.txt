@@ -5,15 +5,17 @@ screen.height       1024
 devicePixelRatio    2
 
 
-When    scale=1.0,
+When    orientation=portrait,
+        scale=1,
         viewport-width=768,
         view=full
 
 innerWidth          768
-innerHeight         928
+innerHeight         960
 
 
-When    scale=1.0,
+When    orientation=portrait,
+        scale=1,
         viewport-width=768,
         view=minimal
 
@@ -21,9 +23,28 @@ innerWidth          768
 innerHeight         985
 
 
-When    scale=0.25,
+When    orientation=portrait,
+        scale=0.25,
         viewport-width=3072,
         view=minimal
 
 innerWidth          3072
 innerHeight         3938
+
+
+When    orientation=landscape,
+        scale=1,
+        viewport-width=1024,
+        view=minimal
+
+innerWidth          1024
+innerHeight         729
+
+
+When    orientation=landscape,
+        scale=0.25,
+        viewport-width=4096,
+        view=minimal
+
+innerWidth          4096
+innerHeight         2914

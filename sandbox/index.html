@@ -26,15 +26,13 @@
     <div id="buffer"></div>
 
     <script>
-    /*var scream,
+    var scream,
         updateInfo;
-
-
 
     scream = gajus.Scream({
         width: {
-            portrait: 320,
-            landscape: 586
+            portrait: screen.width,
+            landscape: screen.height * 2
         }
     });
 
@@ -48,14 +46,18 @@
 
     updateInfo();
 
+    window.addEventListener('scroll', function () {
+        // iPhone 6 plus does not trigger resize event when leaving the minimal-ui in the landscape orientation.
+        updateInfo();
+    });
+
     window.addEventListener('resize', function () {
-        // Used to capture entering/leaving the minimal view.
         updateInfo();
     });
 
     scream.on('orientationchangeend', function () {
         updateInfo();
-    });*/
+    });
     </script>
 </body>
 </html>

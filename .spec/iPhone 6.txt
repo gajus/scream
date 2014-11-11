@@ -1,29 +1,50 @@
 iPhone 6
 
-screen.width        327
+screen.width        375
 screen.height       667
 devicePixelRatio    2
 
 
-When    scale=1.0,
-        viewport-width=327,
+When    orientation=portrait,
+        scale=1,
+        viewport-width=375,
         view=full
 
 innerWidth          375
 innerHeight         559
 
 
-When    scale=1.0,
-        viewport-width=327,
+When    orientation=portrait,
+        scale=1,
+        viewport-width=375,
         view=minimal
 
 innerWidth          375
 innerHeight         628
 
 
-When    scale=0.25,
+When    orientation=portrait,
+        scale=0.25,
         viewport-width=1500,
         view=minimal
 
 innerWidth          1500
 innerHeight         2510
+
+
+When    orientation=landscape,
+        scale=1,
+        viewport-width=667,
+        view=minimal
+
+innerWidth          667
+innerHeight         375
+
+
+When    orientation=landscape,
+        scale=0.25,
+        viewport-width=2668,
+        view=minimal
+
+innerWidth          2668
+innerHeight         1500
