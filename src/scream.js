@@ -216,7 +216,9 @@ Scream = function Scream (config) {
         var currentView = scream.isMinimalView() ? 'minimal' : 'full';
 
         if (lastView != currentView) {
-            eventEmitter.trigger('viewchange');
+            eventEmitter.trigger('viewchange', {
+                viewName: currentView
+            });
 
             lastView = currentView;
         }
