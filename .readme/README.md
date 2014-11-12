@@ -7,6 +7,8 @@ Dynamic viewport management for mobile. Manage `viewport` in different states of
 
 ![Demonstration using iOS simulator](./.readme/demonstration.gif)
 
+[toc 3]
+
 ## Managing the Viewport
 
 Configure dimensions of the viewport at the time of the initialization:
