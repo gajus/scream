@@ -262,6 +262,10 @@ Scream = function Scream (config) {
                 scream._detectViewChange();
             }
         });
+
+        setTimeout(function () {
+            scream._detectViewChange();
+        });
     };
 
     scream._updateViewport();
