@@ -378,7 +378,7 @@ Scream = function Scream (config) {
      * 
      */
     scream._detectViewChange = (function () {
-        var lastView = scream.isMinimalView() ? 'minimal' : 'full';
+        var lastView;
 
         return function () {
             var currentView = scream.isMinimalView() ? 'minimal' : 'full';

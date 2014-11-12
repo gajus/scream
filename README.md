@@ -54,7 +54,7 @@ scream.on('orientationchangeend', function () {
 
 ### View Change
 
-Invoked when view changes.
+Invoked on page load and when view changes.
 
 ```js
 scream.on('viewchange', function (e) {
