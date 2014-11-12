@@ -1,5 +1,5 @@
 /**
- * @version 2.0.4
+ * @version 2.0.5
  * @link https://github.com/gajus/scream for the canonical source repository
  * @license https://github.com/gajus/scream/blob/master/LICENSE BSD 3-Clause
  */
