@@ -50,7 +50,9 @@
         updateInfo();
     });
 
-    scream.on('viewchange', function () {
+    scream.on('viewchange', function (e) {
+        console.log('viewchange', e.viewName);
+
         updateInfo();
     });
     </script>

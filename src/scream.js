@@ -4,8 +4,7 @@ var Scream,
     
 Scream = function Scream (config) {
     var scream,
-        eventEmitter,
-        lastView;
+        eventEmitter;
 
     if (!(this instanceof Scream)) {
         return new Scream(config);
@@ -212,41 +211,61 @@ Scream = function Scream (config) {
     /**
      * 
      */
-    scream._detectViewChange = function () {
-        var currentView = scream.isMinimalView() ? 'minimal' : 'full';
+    scream._detectViewChange = (function () {
+        var lastView = scream.isMinimalView() ? 'minimal' : 'full';
 
-        if (lastView != currentView) {
-            eventEmitter.trigger('viewchange', {
-                viewName: currentView
+        return function () {
+            var currentView = scream.isMinimalView() ? 'minimal' : 'full';
+
+            if (lastView != currentView) {
+                eventEmitter.trigger('viewchange', {
+                    viewName: currentView
+                });
+
+                lastView = currentView;
+            }
+        }
+    } ());
+
+    scream._setupDOMEventListeners = function () {
+        var isOrientationChanging;
+
+        // Media matcher is the first to pick up the orientation change.
+        global
+            .matchMedia('(orientation: portrait)')
+            .addListener(function (m) {
+                isOrientationChanging = true;
             });
 
-            lastView = currentView;
-        }
+        OCE.on('orientationchangeend', function () {
+            isOrientationChanging = false;
+
+            scream._updateViewport();
+            scream._detectViewChange();
+
+            eventEmitter.trigger('orientationchangeend');
+        });
+
+        global.addEventListener('orientationchange', function () {
+            scream._updateViewport();
+        });
+
+        global.addEventListener('resize', function () {
+            if (!isOrientationChanging) {
+                scream._detectViewChange();
+            }
+        });
+
+        // iPhone 6 plus does not trigger resize event when leaving the minimal-ui in the landscape orientation.
+        global.addEventListener('scroll', function () {
+            if (!isOrientationChanging) {
+                scream._detectViewChange();
+            }
+        });
     };
 
     scream._updateViewport();
-
-    lastView = scream.isMinimalView() ? 'minimal' : 'full';
-
-    OCE.on('orientationchangeend', function () {
-        scream._updateViewport();
-        scream._detectViewChange();
-
-        eventEmitter.trigger('orientationchangeend');
-    });
-
-    global.addEventListener('orientationchange', function () {
-        scream._updateViewport();
-    });
-
-    global.addEventListener('resize', function () {
-        scream._detectViewChange();
-    });
-
-    // iPhone 6 plus does not trigger resize event when leaving the minimal-ui in the landscape orientation.
-    global.addEventListener('scroll', function () {
-        scream._detectViewChange();
-    });
+    scream._setupDOMEventListeners();
 
     scream.on = eventEmitter.on;
 };
