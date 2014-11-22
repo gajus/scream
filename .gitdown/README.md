@@ -7,7 +7,7 @@ Dynamic viewport management for mobile. Manage `viewport` in different states of
 
 ![Demonstration using iOS simulator](./.gitdown/demonstration.gif)
 
-[toc 3]
+{"gitdown": "contents"}
 
 ## Managing the Viewport
 

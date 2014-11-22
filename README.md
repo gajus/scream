@@ -11,7 +11,17 @@ Dynamic viewport management for mobile. Manage `viewport` in different states of
 
 ![Demonstration using iOS simulator](./.gitdown/demonstration.gif)
 
-[toc 3]
+* [Scream](#scream)
+    * [Managing the Viewport](#scream-managing-the-viewport)
+        * [Configuration](#scream-managing-the-viewport-configuration)
+    * [Events](#scream-events)
+        * [Orientation Change](#scream-events-orientation-change)
+        * [View Change](#scream-events-view-change)
+    * [Screen](#scream-screen)
+    * [Viewport](#scream-viewport)
+    * [Minimal View](#scream-minimal-view)
+    * [Download](#scream-download)
+
 
 <h2 id="scream-managing-the-viewport">Managing the Viewport</h2>
 
