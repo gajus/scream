@@ -1,27 +1,19 @@
-# Scream
+<!--
+This file has been generated using GitDown (https://github.com/gajus/gitdown).
+Direct edits to this will be be overwritten. Look for GitDown markup file under ./.gitdown/ path.
+-->
+<h1 id="scream">Scream</h1>
 
-[![NPM version](https://badge.fury.io/js/scream.svg)](http://badge.fury.io/js/scream)
-[![Bower version](https://badge.fury.io/bo/scream.svg)](http://badge.fury.io/bo/scream)
+[![NPM version](http://img.shields.io/npm/v/scream.svg?style=flat)](https://www.npmjs.org/package/scream)
+[![Bower version](http://img.shields.io/bower/v/scream.svg?style=flat)](http://bower.io/search/?q=scream)
 
 Dynamic viewport management for mobile. Manage `viewport` in different states of device orientation. Scale document to fit viewport. Calculate the dimensions of the "minimal" iOS 8 view relative to your viewport width.
 
-![Demonstration using iOS simulator](./.readme/demonstration.gif)
+![Demonstration using iOS simulator](./.gitdown/demonstration.gif)
 
-## Contents
+[toc 3]
 
-- [Managing the Viewport](#managing-the-viewport)
-    - [Configuration](#configuration)
-- [Events](#events)
-    - [Orientation Change](#orientation-change)
-    - [View Change](#view-change)
-- [Screen](#screen)
-- [Viewport](#viewport)
-- [Minimal View](#minimal-view)
-- [Download](#download)
-
-
-
-## Managing the Viewport
+<h2 id="scream-managing-the-viewport">Managing the Viewport</h2>
 
 Configure dimensions of the viewport at the time of the initialization:
 
@@ -43,16 +35,16 @@ Scream generates the `viewport` meta tag to reflect the present orientation and 
 * `{width}` the width set in the configuration for the current orientation.
 * `{scale}` calculated scale needed to fit the document in the screen.
 
-### Configuration
+<h3 id="scream-managing-the-viewport-configuration">Configuration</h3>
 
 | Name | Description | Default |
 | --- | --- | --- |
 | `width.portrait` | Viewport width in the portrait orientation. | `screen.width` (`device-width`) |
 | `width.landscape` | Viewport width in the landscape orientation. | `screen.width` (`device-width`) |
 
-## Events
+<h2 id="scream-events">Events</h2>
 
-### Orientation Change
+<h3 id="scream-events-orientation-change">Orientation Change</h3>
 
 > The `orientationchangeend` event is fired when the orientation of the device has changed and the associated rotation animation has been complete.
 
@@ -66,7 +58,7 @@ scream.on('orientationchangeend', function () {
 });
 ```
 
-### View Change
+<h3 id="scream-events-view-change">View Change</h3>
 
 Invoked on page load and when view changes.
 
@@ -77,7 +69,7 @@ scream.on('viewchange', function (e) {
 });
 ```
 
-## Screen
+<h2 id="scream-screen">Screen</h2>
 
 ```js
 /**
@@ -100,7 +92,7 @@ scream.getScreenWidth();
 scream.getScreenHeight();
 ```
 
-## Viewport
+<h2 id="scream-viewport">Viewport</h2>
 
 ```js
 /**
@@ -125,7 +117,7 @@ scream.getViewportHeight();
 scream.getScale();
 ```
 
-## Minimal View
+<h2 id="scream-minimal-view">Minimal View</h2>
 
 This functionality is iOS 8 specific. It has been developed as part of [Brim](https://github.com/gajus/brim) to bring back the minimal-ui.
 
@@ -154,7 +146,7 @@ scream.getMinimalViewSize();
 scream.isMinimalView();
 ```
 
-## Download
+<h2 id="scream-download">Download</h2>
 
 Using [Bower](http://bower.io/):
 

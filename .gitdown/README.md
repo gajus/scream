@@ -1,11 +1,11 @@
 # Scream
 
-[![NPM version](https://badge.fury.io/js/scream.svg)](http://badge.fury.io/js/scream)
-[![Bower version](https://badge.fury.io/bo/scream.svg)](http://badge.fury.io/bo/scream)
+{"gitdown": "badge", "name": "npm-version"}
+{"gitdown": "badge", "name": "bower-version"}
 
 Dynamic viewport management for mobile. Manage `viewport` in different states of device orientation. Scale document to fit viewport. Calculate the dimensions of the "minimal" iOS 8 view relative to your viewport width.
 
-![Demonstration using iOS simulator](./.readme/demonstration.gif)
+![Demonstration using iOS simulator](./.gitdown/demonstration.gif)
 
 [toc 3]
 
