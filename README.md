@@ -7,7 +7,11 @@ Direct edits to this will be be overwritten. Look for GitDown markup file under 
 [![NPM version](http://img.shields.io/npm/v/scream.svg?style=flat)](https://www.npmjs.org/package/scream)
 [![Bower version](http://img.shields.io/bower/v/scream.svg?style=flat)](http://bower.io/search/?q=scream)
 
-Dynamic viewport management for mobile. Manage `viewport` in different states of device orientation. Scale document to fit viewport. Calculate the dimensions of the "minimal" iOS 8 view relative to your viewport width.
+Dynamic viewport management for mobile.
+
+* Manage `viewport` in different states of device orientation.
+* Scale document to fit viewport.
+* Calculate the dimensions of the "minimal" iOS 8 view relative to your viewport width.
 
 ![Demonstration using iOS simulator](./.gitdown/demonstration.gif)
 

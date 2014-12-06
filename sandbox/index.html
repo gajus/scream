@@ -41,7 +41,7 @@
         document.querySelector('dd[data-name="viewport-width"]').innerText = scream.getViewportWidth();
         document.querySelector('dd[data-name="viewport-height"]').innerText = scream.getViewportHeight();
         document.querySelector('dd[data-name="scale"]').innerText = scream.getScale().toFixed(4);
-        document.querySelector('dd[data-name="is-minimal-view"]').innerText = scream.isMinimalView() ? 'yes' : 'no';
+        document.querySelector('dd[data-name="is-minimal-view"]').innerText = scream._deviceSpec() ? (scream.isMinimalView() ? 'yes' : 'no') : 'N/A';
     };
 
     updateInfo();

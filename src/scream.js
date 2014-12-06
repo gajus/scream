@@ -115,31 +115,24 @@ Scream = function Scream (config) {
     };
 
     /**
-     * Returns height of the usable viewport in the minimal view relative to the current viewport width.
+     * Uses static device environment variables (screen.width, screen.height, devicePixelRatio) to recognize device spec.
      * 
-     * @see http://stackoverflow.com/questions/26827822/how-is-the-window-innerheight-derived-of-the-minimal-view/26827842
-     * @see http://stackoverflow.com/questions/26801943/how-to-get-the-window-size-of-fullscream-view-when-not-in-fullscream
-     * @return {Number}
+     * @return {Array} spec
+     * @return {Number} spec[0] window.innerWidth when device is in a portrait orientation, scale 0.25 and page is the minimal view
+     * @return {Number} spec[1] window.innerHeight when device is in a portrait orientation, scale 0.25 and page is the minimal view
+     * @return {Number} spec[2] window.innerWidth when device is in a landscape orientation, scale 0.25 and page is the minimal view
+     * @return {Number} spec[3] window.innerHeight when device is in a landscape orientation, scale 0.25 and page is the minimal view
+     * @return {Number} spec[4] screen.width
+     * @return {Number} spec[5] screen.height
+     * @return {Number} spec[6] devicePixelRatio
+     * @return {String} spec[7] name
      */
-    scream._getMinimalViewHeight = function () {
+    scream._deviceSpec = function () {
         var specs,
             spec,
-            i,
-            height,
-            orientation = scream.getOrientation();
+            i;
 
         specs = [
-            // @see ./.spec/
-            // [
-            //  window.innerWidth when device is in a portrait orientation, scale 0.25 and page is the minimal view,
-            //  window.innerHeight when device is in a portrait orientation, scale 0.25 and page is the minimal view,
-            //  window.innerWidth when device is in a landscape orientation, scale 0.25 and page is the minimal view,
-            //  window.innerHeight when device is in a landscape orientation, scale 0.25 and page is the minimal view,
-            //  screen.width,
-            //  screen.height,
-            //  devicePixelRatio,
-            //  name
-            // ]
             [1280, 1762, 1920, 1280, 320, 480, 2, 'iPhone 4'],
             [1280, 2114, 2272, 1280, 320, 568, 2, 'iPhone 5 or 5s'],
             [1500, 2510, 2668, 1500, 375, 667, 2, 'iPhone 6'],
@@ -160,6 +153,25 @@ Scream = function Scream (config) {
                 break;
             }
         }
+
+        return spec;
+    }
+
+    /**
+     * Returns height of the usable viewport in the minimal view relative to the current viewport width.
+     * 
+     * This method will work with iOS8 only.
+     * 
+     * @see http://stackoverflow.com/questions/26827822/how-is-the-window-innerheight-derived-of-the-minimal-view/26827842
+     * @see http://stackoverflow.com/questions/26801943/how-to-get-the-window-size-of-fullscream-view-when-not-in-fullscream
+     * @return {Number}
+     */
+    scream._getMinimalViewHeight = function () {
+        var spec,
+            height,
+            orientation = scream.getOrientation();
+
+        spec = scream._deviceSpec();
 
         if (!spec) {
             throw new Error('Not a known iOS device. If you are using an iOS device, report it to https://github.com/gajus/scream/issues/1.');
@@ -209,10 +221,18 @@ Scream = function Scream (config) {
     };
 
     /**
-     * 
+     * Detect when view changes from full to minimal and vice-versa.
      */
     scream._detectViewChange = (function () {
         var lastView;
+
+        // This method will only with iOS 8.
+        // Overwrite the event handler to prevent an error.
+        if (!scream._deviceSpec()) {
+            console.log('View change detection has been disabled. Unrecognized device. If you are using an iOS device, report it to https://github.com/gajus/scream/issues/1.');
+
+            return function () {};
+        }
 
         return function () {
             var currentView = scream.isMinimalView() ? 'minimal' : 'full';
