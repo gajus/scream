@@ -7,7 +7,7 @@
     "minimal",
     "ios"
   ],
-  "version": "2.0.8",
+  "version": "2.0.9",
   "main": "src/scream.js",
   "author": "Gajus Kuizinas <gk@anuary.com>",
   "repository": {
