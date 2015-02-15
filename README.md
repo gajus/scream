@@ -172,8 +172,3 @@ Using [NPM](https://www.npmjs.org/):
 ```sh
 npm install scream
 ```
-
-The old-fashioned way, download either of the following files:
-
-* https://raw.githubusercontent.com/gajus/scream/master/dist/scream.js
-* https://raw.githubusercontent.com/gajus/scream/master/dist/scream.min.js
