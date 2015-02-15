@@ -61,7 +61,7 @@ Scream = function Scream (config) {
      * @return {String} portrait|landscape
      */
     scream.getOrientation = function () {
-        return global.orientation === 0 ? 'portrait' : 'landscape';
+        return global.orientation === 0 || global.orientation === 180 ? 'portrait' : 'landscape';
     };
 
     /**
