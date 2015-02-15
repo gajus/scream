@@ -1,7 +1,3 @@
-<!--
-This file has been generated using GitDown (https://github.com/gajus/gitdown).
-Direct edits to this will be be overwritten. Look for GitDown markup file under ./.gitdown/ path.
--->
 <h1 id="scream">Scream</h1>
 
 [![NPM version](http://img.shields.io/npm/v/scream.svg?style=flat)](https://www.npmjs.org/package/scream)
