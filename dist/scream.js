@@ -1,5 +1,5 @@
 /**
- * @version 2.0.7
+ * @version 2.0.8
  * @link https://github.com/gajus/scream for the canonical source repository
  * @license https://github.com/gajus/scream/blob/master/LICENSE BSD 3-Clause
  */
@@ -164,10 +164,14 @@ module.exports = Sister;
 }).call(this,typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{}],3:[function(require,module,exports){
 (function (global){
+'use strict';
+
+/* global global, document */
+
 var Scream,
     Sister = require('sister'),
     OCE = require('orientationchangeend')();
-    
+
 Scream = function Scream (config) {
     var scream,
         eventEmitter;
@@ -216,7 +220,7 @@ Scream = function Scream (config) {
      * @return {Number}
      */
     scream.getScale = function () {
-        return scream.getScreenWidth()/scream.getViewportWidth();
+        return scream.getScreenWidth() / scream.getViewportWidth();
     };
 
     /**
@@ -228,7 +232,7 @@ Scream = function Scream (config) {
 
     /**
      * Screen width relative to the device orientation.
-     * 
+     *
      * @return {Number}
      */
     scream.getScreenWidth = function () {
@@ -237,7 +241,7 @@ Scream = function Scream (config) {
 
     /**
      * Screen width relative to the device orientation.
-     * 
+     *
      * @return {Number}
      */
     scream.getScreenHeight = function () {
@@ -260,13 +264,13 @@ Scream = function Scream (config) {
         width = scream.getViewportWidth();
         scale = scream.getScale();
 
-        content = 
+        content =
              'width=' + width +
             ', initial-scale=' + scale +
             ', minimum-scale=' + scale +
             ', maximum-scale=' + scale +
             ', user-scalable=0';
-        
+
         viewport = document.createElement('meta');
         viewport.name = 'viewport';
         viewport.content = content;
@@ -282,7 +286,7 @@ Scream = function Scream (config) {
 
     /**
      * Uses static device environment variables (screen.width, screen.height, devicePixelRatio) to recognize device spec.
-     * 
+     *
      * @return {Array} spec
      * @return {Number} spec[0] window.innerWidth when device is in a portrait orientation, scale 0.25 and page is the minimal view
      * @return {Number} spec[1] window.innerHeight when device is in a portrait orientation, scale 0.25 and page is the minimal view
@@ -313,7 +317,6 @@ Scream = function Scream (config) {
             if (global.screen.width === specs[i][4] &&
                 global.screen.height === specs[i][5] &&
                 global.devicePixelRatio === specs[i][6]) {
-
                 spec = specs[i];
 
                 break;
@@ -321,13 +324,13 @@ Scream = function Scream (config) {
         }
 
         return spec;
-    }
+    };
 
     /**
      * Returns height of the usable viewport in the minimal view relative to the current viewport width.
-     * 
+     *
      * This method will work with iOS8 only.
-     * 
+     *
      * @see http://stackoverflow.com/questions/26827822/how-is-the-window-innerheight-derived-of-the-minimal-view/26827842
      * @see http://stackoverflow.com/questions/26801943/how-to-get-the-window-size-of-fullscream-view-when-not-in-fullscream
      * @return {Number}
@@ -344,9 +347,9 @@ Scream = function Scream (config) {
         }
 
         if (orientation === 'portrait') {
-            height = Math.round((scream.getViewportWidth() * spec[1]) / spec[0]);
+            height = Math.round(scream.getViewportWidth() * spec[1] / spec[0]);
         } else {
-            height = Math.round((scream.getViewportWidth() * spec[3]) / spec[2]);
+            height = Math.round(scream.getViewportWidth() * spec[3] / spec[2]);
         }
 
         return height;
@@ -354,7 +357,7 @@ Scream = function Scream (config) {
 
     /**
      * Returns dimensions of the usable viewport in the minimal view relative to the current viewport width and orientation.
-     * 
+     *
      * @return {Object} dimensions
      * @return {Number} dimensions.width
      * @return {Number} dimensions.height
@@ -378,18 +381,18 @@ Scream = function Scream (config) {
      *
      * In case of orientation change, the state of the view can be accurately
      * determined only after orientationchangeend event.
-     * 
+     *
      * @return {Boolean}
      */
     scream.isMinimalView = function () {
         // It is enough to check the height, because the viewport is based on width.
-        return global.innerHeight == scream.getMinimalViewSize().height;
+        return global.innerHeight === scream.getMinimalViewSize().height;
     };
 
     /**
      * Detect when view changes from full to minimal and vice-versa.
      */
-    scream._detectViewChange = (function () {
+    scream._detectViewChange = function () {
         var lastView;
 
         // This method will only with iOS 8.
@@ -403,15 +406,17 @@ Scream = function Scream (config) {
         return function () {
             var currentView = scream.isMinimalView() ? 'minimal' : 'full';
 
-            if (lastView != currentView) {
+            if (lastView !== currentView) {
                 eventEmitter.trigger('viewchange', {
                     viewName: currentView
                 });
 
                 lastView = currentView;
             }
-        }
-    } ());
+        };
+    };
+
+    scream._detectViewChange = scream._detectViewChange();
 
     scream._setupDOMEventListeners = function () {
         var isOrientationChanging;
@@ -419,7 +424,7 @@ Scream = function Scream (config) {
         // Media matcher is the first to pick up the orientation change.
         global
             .matchMedia('(orientation: portrait)')
-            .addListener(function (m) {
+            .addListener(function () {
                 isOrientationChanging = true;
             });
 
@@ -464,5 +469,6 @@ global.gajus = global.gajus || {};
 global.gajus.Scream = Scream;
 
 module.exports = Scream;
+
 }).call(this,typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{"orientationchangeend":1,"sister":2}]},{},[3])
