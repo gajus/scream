@@ -2,6 +2,7 @@
   "name": "scream",
   "description": "Dynamic viewport management for mobile. Manage viewport in different states of device orientation. Scale document to fit viewport. Calculate the dimensions of the minimal iOS 8 view relative to your viewport width.",
   "version": "2.0.9",
+  "main": "scream",
   "keywords": [
     "viewport",
     "fullscreen",
@@ -11,5 +12,13 @@
   "license": "BSD-3-Clause",
   "authors": [
     "Gajus Kuizinas <gk@anuary.com>"
+  ],
+  "ignore": [
+    ".*",
+    "*.md",
+    "sandbox",
+    "src",
+    "gulpfile.js",
+    "package.json"
   ]
 }
