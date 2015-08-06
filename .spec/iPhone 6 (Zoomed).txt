@@ -1,0 +1,50 @@
+iPhone 6 (Zoomed)
+
+screen.width        320
+screen.height       568
+devicePixelRatio    2
+
+
+When    orientation=portrait,
+        scale=1,
+        viewport-width=320,
+        view=full
+
+innerWidth          1280
+innerHeight         1840
+
+
+When    orientation=portrait,
+        scale=1,
+        viewport-width=375,
+        view=minimal
+
+innerWidth          375
+innerHeight         628
+
+
+When    orientation=portrait,
+        scale=0.25,
+        viewport-width=1280,
+        view=minimal
+
+innerWidth          1280
+innerHeight         2114
+
+
+When    orientation=landscape,
+        scale=1,
+        viewport-width=568,
+        view=minimal
+
+innerWidth          2272
+innerHeight         928
+
+
+When    orientation=landscape,
+        scale=0.25,
+        viewport-width=2272,
+        view=minimal
+
+innerWidth          2272
+innerHeight         1280

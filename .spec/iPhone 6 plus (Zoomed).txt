@@ -1,0 +1,50 @@
+iPhone 6 plus (Zoomed)
+
+screen.width        375
+screen.height       667
+devicePixelRatio    3
+
+
+When    orientation=portrait,
+        scale=1,
+        viewport-width=375,
+        view=full
+
+innerWidth          1500
+innerHeight         2236
+
+
+When    orientation=portrait,
+        scale=1,
+        viewport-width=375,
+        view=minimal
+
+innerWidth          1500
+innerHeight         2509
+
+
+When    orientation=portrait,
+        scale=0.25,
+        viewport-width=1500,
+        view=minimal
+
+innerWidth          1500
+innerHeight         2509
+
+
+When    orientation=landscape,
+        scale=1,
+        viewport-width=667,
+        view=minimal
+
+innerWidth          2668
+innerHeight         1324
+
+
+When    orientation=landscape,
+        scale=0.25,
+        viewport-width=2668,
+        view=minimal
+
+innerWidth          2668
+innerHeight         1500
