@@ -31,7 +31,7 @@ Dynamic viewport management for mobile.
 Configure dimensions of the viewport at the time of the initialization:
 
 ```js
-var scream = Scream({
+var scream = gajus.Scream({
     width: {
         portrait: 320,
         landscape: 640
