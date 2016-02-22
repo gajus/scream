@@ -1,0 +1,50 @@
+iPad Pro
+
+screen.width        1024
+screen.height       1366
+devicePixelRatio    2
+
+
+When    orientation=portrait,
+        scale=1,
+        viewport-width=1024,
+        view=full
+
+innerWidth          1024
+innerHeight         1302
+
+
+When    orientation=portrait,
+        scale=1,
+        viewport-width=1024,
+        view=minimal
+
+innerWidth          1024
+innerHeight         1327
+
+
+When    orientation=portrait,
+        scale=0.25,
+        viewport-width=4096,
+        view=minimal
+
+innerWidth          4096
+innerHeight         5306
+
+
+When    orientation=landscape,
+        scale=1,
+        viewport-width=1366,
+        view=minimal
+
+innerWidth          1366
+innerHeight         985
+
+
+When    orientation=landscape,
+        scale=0.25,
+        viewport-width=5464,
+        view=minimal
+
+innerWidth          5464
+innerHeight         3938

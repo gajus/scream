@@ -148,7 +148,9 @@ Scream = function Scream (config) {
             [1500, 2509, 2668, 1500, 375, 667, 3, 'iPhone 6 plus (Zoomed)'],
 
             [3072, 3936, 4096, 2912, 768, 1024, 1, 'iPad 2'],
-            [3072, 3938, 4096, 2914, 768, 1024, 2, 'iPad Air or Retina']
+            [3072, 3938, 4096, 2914, 768, 1024, 2, 'iPad Air or Retina'],
+
+            [4096, 5306, 5464, 3938, 1024, 1366, 2, 'iPad Pro']
         ];
 
         i = specs.length;
