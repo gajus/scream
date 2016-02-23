@@ -1,7 +1,6 @@
 # Scream
 
 {"gitdown": "badge", "name": "npm-version"}
-{"gitdown": "badge", "name": "bower-version"}
 
 Dynamic viewport management for mobile.
 
@@ -20,7 +19,9 @@ Dynamic viewport management for mobile.
 Configure dimensions of the viewport at the time of the initialization:
 
 ```js
-var scream = Scream({
+import Scream from 'scream';
+
+const scream = Scream({
     width: {
         portrait: 320,
         landscape: 640
@@ -55,7 +56,7 @@ Scream generates the `viewport` meta tag to reflect the present orientation and 
 This is proxy for your convenience to perform operations that must follow the change of the device orientation and in the context of updated viewport tag. This is required when determining the view state.
 
 ```js
-scream.on('orientationchangeend', function () {
+scream.on('orientationchangeend', () => {
     // Invoked after the orientation change and the associated animation (iOS) has been completed.
 });
 ```
@@ -65,7 +66,7 @@ scream.on('orientationchangeend', function () {
 Invoked on page load and when view changes.
 
 ```js
-scream.on('viewchange', function (e) {
+scream.on('viewchange', (e) => {
     // @var {String} 'full', 'minimal'
     e.viewName;
 });
@@ -99,7 +100,7 @@ scream.getScreenHeight();
 ```js
 /**
  * Viewport width relative to the device orientation.
- * 
+ *
  * @return {Number}
  */
 scream.getViewportWidth();
@@ -126,7 +127,7 @@ This functionality is iOS 8 specific. It has been developed as part of [Brim](ht
 ```js
 /**
  * Returns dimensions of the usable viewport in the minimal view relative to the current viewport width and orientation.
- * 
+ *
  * @return {Object} dimensions
  * @return {Number} dimensions.width
  * @return {Number} dimensions.height
@@ -142,19 +143,13 @@ scream.getMinimalViewSize();
  *
  * In case of orientation change, the state of the view can be accurately
  * determined only after orientationchangeend event.
- * 
+ *
  * @return {Boolean}
  */
 scream.isMinimalView();
 ```
 
 ## Download
-
-Using [Bower](http://bower.io/):
-
-```sh
-bower install scream
-```
 
 Using [NPM](https://www.npmjs.org/):
 
