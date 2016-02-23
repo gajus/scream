@@ -1,7 +1,6 @@
-<h1 id="scream">Scream</h1>
+# Scream
 
-[![NPM version](http://img.shields.io/npm/v/scream.svg?style=flat)](https://www.npmjs.org/package/scream)
-[![Bower version](http://img.shields.io/bower/v/scream.svg?style=flat)](http://bower.io/search/?q=scream)
+[![NPM version](http://img.shields.io/npm/v/scream.svg?style=flat-square)](https://www.npmjs.org/package/scream)
 
 Dynamic viewport management for mobile.
 
@@ -9,9 +8,9 @@ Dynamic viewport management for mobile.
 * Scale document to fit viewport.
 * Calculate the dimensions of the "minimal" iOS 8 view relative to your viewport width.
 
-![Demonstration using iOS simulator](./.gitdown/demonstration.gif)
+![Demonstration using iOS simulator](./.README/demonstration.gif)
 
-<h2 id="scream-contents">Contents</h2>
+## Contents
 
 * [Scream](#scream)
     * [Contents](#scream-contents)
@@ -25,13 +24,14 @@ Dynamic viewport management for mobile.
     * [Minimal View](#scream-minimal-view)
     * [Download](#scream-download)
 
-
-<h2 id="scream-managing-the-viewport">Managing the Viewport</h2>
+## Managing the Viewport
 
 Configure dimensions of the viewport at the time of the initialization:
 
 ```js
-var scream = Scream({
+import Scream from 'scream';
+
+const scream = Scream({
     width: {
         portrait: 320,
         landscape: 640
@@ -48,16 +48,16 @@ Scream generates the `viewport` meta tag to reflect the present orientation and 
 * `{width}` the width set in the configuration for the current orientation.
 * `{scale}` calculated scale needed to fit the document in the screen.
 
-<h3 id="scream-managing-the-viewport-configuration">Configuration</h3>
+### Configuration
 
 | Name | Description | Default |
 | --- | --- | --- |
 | `width.portrait` | Viewport width in the portrait orientation. | `screen.width` (`device-width`) |
 | `width.landscape` | Viewport width in the landscape orientation. | `screen.width` (`device-width`) |
 
-<h2 id="scream-events">Events</h2>
+## Events
 
-<h3 id="scream-events-orientation-change">Orientation Change</h3>
+### Orientation Change
 
 > The `orientationchangeend` event is fired when the orientation of the device has changed and the associated rotation animation has been complete.
 
@@ -66,23 +66,23 @@ Scream generates the `viewport` meta tag to reflect the present orientation and 
 This is proxy for your convenience to perform operations that must follow the change of the device orientation and in the context of updated viewport tag. This is required when determining the view state.
 
 ```js
-scream.on('orientationchangeend', function () {
+scream.on('orientationchangeend', () => {
     // Invoked after the orientation change and the associated animation (iOS) has been completed.
 });
 ```
 
-<h3 id="scream-events-view-change">View Change</h3>
+### View Change
 
 Invoked on page load and when view changes.
 
 ```js
-scream.on('viewchange', function (e) {
+scream.on('viewchange', (e) => {
     // @var {String} 'full', 'minimal'
     e.viewName;
 });
 ```
 
-<h2 id="scream-screen">Screen</h2>
+## Screen
 
 ```js
 /**
@@ -105,12 +105,12 @@ scream.getScreenWidth();
 scream.getScreenHeight();
 ```
 
-<h2 id="scream-viewport">Viewport</h2>
+## Viewport
 
 ```js
 /**
  * Viewport width relative to the device orientation.
- * 
+ *
  * @return {Number}
  */
 scream.getViewportWidth();
@@ -130,14 +130,14 @@ scream.getViewportHeight();
 scream.getScale();
 ```
 
-<h2 id="scream-minimal-view">Minimal View</h2>
+## Minimal View
 
 This functionality is iOS 8 specific. It has been developed as part of [Brim](https://github.com/gajus/brim) to bring back the minimal-ui.
 
 ```js
 /**
  * Returns dimensions of the usable viewport in the minimal view relative to the current viewport width and orientation.
- * 
+ *
  * @return {Object} dimensions
  * @return {Number} dimensions.width
  * @return {Number} dimensions.height
@@ -153,19 +153,13 @@ scream.getMinimalViewSize();
  *
  * In case of orientation change, the state of the view can be accurately
  * determined only after orientationchangeend event.
- * 
+ *
  * @return {Boolean}
  */
 scream.isMinimalView();
 ```
 
-<h2 id="scream-download">Download</h2>
-
-Using [Bower](http://bower.io/):
-
-```sh
-bower install scream
-```
+## Download
 
 Using [NPM](https://www.npmjs.org/):
 

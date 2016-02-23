@@ -30,7 +30,6 @@
   },
   "license": "BSD-3-Clause",
   "devDependencies": {
-    "gitdown": "^1.3.2",
     "pragmatist": "^3.0.13"
   },
   "dependencies": {
