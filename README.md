@@ -19,6 +19,7 @@ Dynamic viewport management for mobile.
     * [Events](#scream-events)
         * [Orientation Change](#scream-events-orientation-change)
         * [View Change](#scream-events-view-change)
+        * [Unregister the event](#unregister-the-event)
     * [Screen](#scream-screen)
     * [Viewport](#scream-viewport)
     * [Minimal View](#scream-minimal-view)
@@ -57,6 +58,7 @@ Scream generates the `viewport` meta tag to reflect the present orientation and 
 
 ## Events
 
+
 ### Orientation Change
 
 > The `orientationchangeend` event is fired when the orientation of the device has changed and the associated rotation animation has been complete.
@@ -80,6 +82,18 @@ scream.on('viewchange', (e) => {
     // @var {String} 'full', 'minimal'
     e.viewName;
 });
+```
+
+### Unregister the event
+
+The `on` method returns a `listener` object that you can use to unregister your event handler calling the method `off`.
+
+```js
+const listener = scream.on('viewchange', (e) => { /* your code */ });
+
+// to unregister:
+
+scream.off(listener);
 ```
 
 ## Screen

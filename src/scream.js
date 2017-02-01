@@ -283,6 +283,7 @@ export default (config: ConfigType = {}): Object => {
     scream.setupDOMEventListeners();
 
     scream.on = eventEmitter.on;
+    scream.off = eventEmitter.off;
 
     return scream;
 };
