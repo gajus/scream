@@ -22,7 +22,7 @@
     "watch-test": "npm run pragmatist watch-test",
     "watch-build": "npm run pragmatist watch-build"
   },
-  "version": "2.2.1",
+  "version": "2.2.2",
   "main": "./dist/scream.js",
   "repository": {
     "type": "git",
