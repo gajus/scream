@@ -131,7 +131,7 @@ export default (config: ConfigType = {}): Object => {
 
             [4096, 5306, 5464, 3938, 1024, 1366, 2, 'iPad Pro'],
             
-            [1280, 2556, 3248, 1500, 375, 812, 3, 'iPhone X']
+            [1280, 2554, 3248, 1500, 375, 812, 3, 'iPhone X']
         ];
 
         index = specs.length;
