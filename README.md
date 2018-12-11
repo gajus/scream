@@ -27,20 +27,21 @@ Dynamic viewport management for mobile.
 
 ## Managing the Viewport
 
-Configure dimensions of the viewport at the time of the initialization:
+Configure management and dimensions of the viewport at the time of the initialization:
 
 ```js
 import Scream from 'scream';
 
 const scream = Scream({
+    viewport: true,
     width: {
-        portrait: 320,
-        landscape: 640
+        portrait: screen.width,
+        landscape: screen.height
     }
 });
 ```
 
-Scream generates the `viewport` meta tag to reflect the present orientation and in response to the [`orientationchangeend`](https://github.com/gajus/orientationchangeend) event.
+If enabled, scream generates the `viewport` meta tag to reflect the present orientation and in response to the [`orientationchangeend`](https://github.com/gajus/orientationchangeend) event.
 
 ```html
 <meta name="viewport" content="width={width},initial-scale={scale},minimum-scale={scale},maximum-scale={scale},user-scale=0">
@@ -53,11 +54,21 @@ Scream generates the `viewport` meta tag to reflect the present orientation and 
 
 | Name | Description | Default |
 | --- | --- | --- |
+| `viewport` | Manage the viewport of the page. | `true` |
 | `width.portrait` | Viewport width in the portrait orientation. | `screen.width` (`device-width`) |
 | `width.landscape` | Viewport width in the landscape orientation. | `screen.width` (`device-width`) |
 
-## Events
+### Safe Area Insert
 
+With the introduction of devices with a notch, there is now the concept of `viewport-fit=cover` and `safe-area-inset` as explained here:
+
+https://webkit.org/blog/7929/designing-websites-for-iphone-x/
+
+This adds additional complexity as applying the viewport width needed for the minimal view calculation can cause content to clash with the notch in landscape mode. It is possible to calculate the padding required to prevent this clash in JavaScript but this only works if `viewport-fit=cover` is set and this may have an undesirable effect on the layout of the page.
+
+Scream attempts to calculate the notch padding by first adding `viewport-fit=cover` to the viewport and then replacing it with the width of the safe area. This works well in most cases but may be undesirable if the notch has already been taken into account in the page design. In this case, it is recommended to manage the viewport tag manually by setting `viewport: false` and applying the relevant `safe-area-inset` padding with CSS.
+
+## Events
 
 ### Orientation Change
 
@@ -117,6 +128,13 @@ scream.getScreenWidth();
  * @return {Number}
  */
 scream.getScreenHeight();
+
+/**
+ * Returns padding needed to prevent content from clashing with notch.
+ *
+ * @return {Number}
+ */
+scream.getNotchPadding();
 ```
 
 ## Viewport

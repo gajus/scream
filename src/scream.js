@@ -4,6 +4,7 @@ import OrientationChangeEnd from 'orientationchangeend';
 const OCE = OrientationChangeEnd();
 
 type ConfigType = {
+    viewport: ?boolean,
     width: {
         portrait: ?number,
         landscape: ?number
@@ -23,6 +24,17 @@ export default (config: ConfigType = {}): Object => {
     if (!config.width.landscape) {
         config.width.landscape = window.screen.width;
     }
+
+    if (config.viewport === undefined) {
+        config.viewport = true;
+    }
+
+    /**
+     * Whether to manage the viewport of the page.
+     */
+    scream.manageViewport = (): boolean => {
+        return config.viewport;
+    };
 
     /**
      * Viewport width relative to the device orientation.
@@ -67,11 +79,13 @@ export default (config: ConfigType = {}): Object => {
 
     /**
      * Generates a viewport tag reflecting the content width relative to the device orientation
-     * and scale required to fit the content in the viewport.
+     * and scale required to fit the content in the viewport if enabled.
      *
      * Appends the tag to the document.head and removes the preceding additions.
      */
     scream.updateViewport = () => {
+        if (!scream.manageViewport()) return;
+
         const width = scream.getViewportWidth();
         const scale = scream.getScale();
         const padding = scream.getNotchPadding();
@@ -83,7 +97,7 @@ export default (config: ConfigType = {}): Object => {
             ', user-scalable=0' +
             ', viewport-fit=cover';
 
-        if(padding > 0) {
+        if (padding > 0) {
             content = 'width=' + (width - padding) +
                 ', initial-scale=' + scale +
                 ', minimum-scale=' + scale +
@@ -217,7 +231,7 @@ export default (config: ConfigType = {}): Object => {
      * Returns padding needed to prevent content from clashing with notch
      * https://stackoverflow.com/questions/46318395/detecting-mobile-device-notch
      */
-    scream.getNotchPadding = function () {
+    scream.getNotchPadding = (): number => {
         let proceed = false;
         let div = document.createElement('div');
         if (CSS.supports('padding-left: env(safe-area-inset-left)')
