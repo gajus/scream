@@ -4,6 +4,7 @@ import OrientationChangeEnd from 'orientationchangeend';
 const OCE = OrientationChangeEnd();
 
 type ConfigType = {
+    viewport: ?boolean,
     width: {
         portrait: ?number,
         landscape: ?number
@@ -23,6 +24,17 @@ export default (config: ConfigType = {}): Object => {
     if (!config.width.landscape) {
         config.width.landscape = window.screen.width;
     }
+
+    if (config.viewport === undefined) {
+        config.viewport = true;
+    }
+
+    /**
+     * Whether to manage the viewport of the page.
+     */
+    scream.manageViewport = (): boolean => {
+        return config.viewport;
+    };
 
     /**
      * Viewport width relative to the device orientation.
@@ -67,30 +79,51 @@ export default (config: ConfigType = {}): Object => {
 
     /**
      * Generates a viewport tag reflecting the content width relative to the device orientation
-     * and scale required to fit the content in the viewport.
+     * and scale required to fit the content in the viewport if enabled.
      *
      * Appends the tag to the document.head and removes the preceding additions.
      */
     scream.updateViewport = () => {
+        if (!scream.manageViewport()) return;
+
         const width = scream.getViewportWidth();
         const scale = scream.getScale();
+        const padding = scream.getNotchPadding();
 
-        const content =
-             'width=' + width +
+        let content = 'width=' + width +
             ', initial-scale=' + scale +
             ', minimum-scale=' + scale +
             ', maximum-scale=' + scale +
-            ', user-scalable=0';
+            ', user-scalable=0' +
+            ', viewport-fit=cover';
+
+        if (padding > 0) {
+            content = 'width=' + (width - padding) +
+                ', initial-scale=' + scale +
+                ', minimum-scale=' + scale +
+                ', maximum-scale=' + scale +
+                ', user-scalable=0';
+        }
 
         const viewport = document.createElement('meta');
-
         viewport.name = 'viewport';
         viewport.content = content;
 
         const oldViewport = window.document.head.querySelector('meta[name="viewport"]');
 
         if (oldViewport) {
+            // Workaround for viewport-fit change not having an immediate effect
+            setTimeout(function (content, viewport) {
+                if(scream.getNotchPadding() > 0 && content !== viewport) {
+                    scream.updateViewport();
+                }
+            }, 2000, content, oldViewport.getAttribute('content'));
             oldViewport.parentNode.removeChild(oldViewport);
+        } else {
+            // Workaround for viewport-fit change not having an immediate effect
+            setTimeout(function () {
+                scream.updateViewport();
+            }, 1000);
         }
 
         window.document.head.appendChild(viewport);
@@ -116,7 +149,7 @@ export default (config: ConfigType = {}): Object => {
             spec;
 
         const specs = [
-            [1280, 1762, 1920, 1280, 320, 480, 2, 'iPhone 4/4S'],
+            [1280, 1762, 1920, 1280, 320, 480, 2, 'iPhone 4/4s'],
             [1280, 2114, 2272, 1280, 320, 568, 2, 'iPhone 5/5c/5s/SE and 6/6s (Zoomed)'],
             [1500, 2510, 2668, 1500, 375, 667, 2, 'iPhone 6/6s/7/8'],
             [1656, 2785, 2944, 1656, 414, 736, 3, 'iPhone 6+/6s+/7+/8+'],
@@ -125,7 +158,9 @@ export default (config: ConfigType = {}): Object => {
             [3072, 3936, 4096, 2912, 768, 1024, 1, 'iPad 2'],
             [3072, 3938, 4096, 2914, 768, 1024, 2, 'iPad Air/Retina/Pro (9.7-inch)'],
             [3336, 4290, 4448, 3178, 834, 1112, 2, 'iPad Pro (10.5-inch)'],
+            [3336, 4602, 4776, 3162, 834, 1194, 2, 'iPad Pro (11-inch)'],
             [4096, 5306, 5464, 3938, 1024, 1366, 2, 'iPad Pro (12.9-inch)'],
+            [4096, 5290, 5464, 3922, 1024, 1366, 2, 'iPad Pro (12.9-inch) 3rd generation'],
 
             [1656, 3330, 3584, 1656, 414, 896, 2, 'iPhone XR'],
             [1500, 2993, 3248, 1500, 375, 812, 3, 'iPhone X/XS'],
@@ -190,6 +225,34 @@ export default (config: ConfigType = {}): Object => {
             height,
             width
         };
+    };
+
+    /**
+     * Returns padding needed to prevent content from clashing with notch
+     * https://stackoverflow.com/questions/46318395/detecting-mobile-device-notch
+     */
+    scream.getNotchPadding = (): number => {
+        let proceed = false;
+        let div = document.createElement('div');
+        if (CSS.supports('padding-left: env(safe-area-inset-left)')
+            && CSS.supports('padding-left: env(safe-area-inset-right)')) {
+            div.style.paddingLeft = 'env(safe-area-inset-left)';
+            div.style.paddingRight = 'env(safe-area-inset-right)';
+            proceed = true;
+        } else if (CSS.supports('padding-left: constant(safe-area-inset-left)')
+            && CSS.supports('padding-left: constant(safe-area-inset-right)')) {
+            div.style.paddingLeft = 'constant(safe-area-inset-left)';
+            div.style.paddingRight = 'constant(safe-area-inset-right)';
+            proceed = true;
+        }
+        if (proceed) {
+            document.body.appendChild(div);
+            let paddingLeft = parseInt(window.getComputedStyle(div).paddingLeft);
+            let paddingRight = parseInt(window.getComputedStyle(div).paddingRight);
+            document.body.removeChild(div);
+            return paddingLeft + paddingRight;
+        }
+        return 0;
     };
 
     /**
