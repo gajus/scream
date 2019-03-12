@@ -22,6 +22,11 @@ declare namespace scream {
     handler: (event: T) => void;
   }
 
+  interface IViewChangeEvent {
+    viewName: ViewType;
+  }
+
+  type ViewType = "minimal" | "full";
   type EventType = "viewchange" | "orientationchangeend";
   type OrientationType = "portrait" | "landscape";
 
@@ -109,14 +114,19 @@ declare class scream {
    */
   public isMinimalView(): boolean;
 
-  /**
-   * Event Emitter
-   */
-  public on<T extends scream.EventType>(
-    event: T,
-    handler: (event: T) => void
-  ): scream.IListener<T>;
+  /** Event Emitter Start **/
+  public on(
+    event: "viewchange",
+    handler: (event: scream.IViewChangeEvent) => void
+  ): scream.IListener<scream.IViewChangeEvent>;
+
+  public on(
+    event: "orientationchangeend",
+    handler: () => void
+  ): scream.IListener<undefined>;
+
   public off<T>(listener: scream.IListener<T>): void;
+  /** Event Emitter End **/
 
   /**
    * Generates a viewport tag reflecting the content width relative to the device orientation
