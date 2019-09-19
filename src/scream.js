@@ -4,7 +4,6 @@ import OrientationChangeEnd from 'orientationchangeend';
 const OCE = OrientationChangeEnd();
 
 type ConfigType = {
-    allowedHeightError: ?number,
     viewport: ?boolean,
     width: {
         portrait: ?number,
@@ -28,10 +27,6 @@ export default (config: ConfigType = {}): Object => {
 
     if (config.viewport === undefined) {
         config.viewport = true;
-    }
-
-    if (config.allowedHeightError === undefined) {
-        config.allowedHeightError = 1;
     }
 
     /**
@@ -272,7 +267,7 @@ export default (config: ConfigType = {}): Object => {
      */
     scream.isMinimalView = (): boolean => {
         // It is enough to check the height, because the viewport is based on width.
-        return Math.abs(window.innerHeight - scream.getMinimalViewSize().height) <= config.allowedHeightError;
+        return window.innerHeight === scream.getMinimalViewSize().height;
     };
 
     /**
