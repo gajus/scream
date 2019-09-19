@@ -30,6 +30,20 @@ export default (config: ConfigType = {}): Object => {
     }
 
     /**
+     * Detects if iOS version equals 13
+     * Only works for iPhone.
+     * @see https://forums.developer.apple.com/thread/119186
+     */
+    scream.isIOS13 = () => {
+      if (/iP(hone|od|ad)/.test(navigator.platform)) {
+        const v = navigator.appVersion.match(/OS (\d+)_(\d+)_?(\d+)?/);
+        return parseInt(v[1]) === 13;
+      }
+
+      return false;
+    };
+
+    /**
      * Whether to manage the viewport of the page.
      */
     scream.manageViewport = (): boolean => {
@@ -148,7 +162,7 @@ export default (config: ConfigType = {}): Object => {
         let index,
             spec;
 
-        const specs = [
+        const specsPreIOS13 = [
             [1280, 1762, 1920, 1280, 320, 480, 2, 'iPhone 4/4s'],
             [1280, 2114, 2272, 1280, 320, 568, 2, 'iPhone 5/5c/5s/SE and 6/6s (Zoomed)'],
             [1500, 2510, 2668, 1500, 375, 667, 2, 'iPhone 6/6s/7/8'],
@@ -164,9 +178,28 @@ export default (config: ConfigType = {}): Object => {
 
             [1656, 3330, 3584, 1656, 414, 896, 2, 'iPhone XR'],
             [1500, 2993, 3248, 1500, 375, 812, 3, 'iPhone X/XS'],
-            [1656, 3329, 3584, 1656, 414, 896, 3, 'iPhone XS Max']
+            [1656, 3329, 3584, 1656, 414, 896, 3, 'iPhone XS Max'],
         ];
 
+        const specsIOS13 = [
+            [1280, 1764, 1920, 1280, 320, 480, 2, 'iPhone 4/4s (iOS 13)'],
+            [1280, 2116, 2272, 1280, 320, 568, 2, 'iPhone 5/5c/5s/SE and 6/6s (Zoomed) (iOS 13)'],
+            [1500, 2512, 2668, 1500, 375, 667, 2, 'iPhone 6/6s/7/8 (iOS 13)'],
+            [1656, 2788, 2944, 1656, 414, 736, 3, 'iPhone 6+/6s+/7+/8+ (iOS 13)'],
+            [1500, 2512, 2668, 1500, 375, 667, 3, 'iPhone 6+/6s+/7+/8+ (Zoomed) (iOS 13)'],
+
+            [3072, 3940, 4096, 3166, 768, 1024, 2, 'iPad Air/Retina/Pro (9.7-inch) (iOS 13)'],
+            [3336, 4276, 4448, 3164, 834, 1112, 2, 'iPad Pro (10.5-inch) (iOS 13)'],
+            [3336, 4604, 4776, 3164, 834, 1194, 2, 'iPad Pro (11-inch) (iOS 13)'],
+            [4096, 5308, 5464, 3940, 1024, 1366, 2, 'iPad Pro (12.9-inch) (iOS 13)'],
+            [4096, 5292, 5464, 3924, 1024, 1366, 2, 'iPad Pro (12.9-inch) 3rd generation (iOS 13)'],
+
+            [1656, 3332, 3584, 1656, 414, 896, 2, 'iPhone XR (iOS 13)'],
+            [1500, 2996, 3248, 1500, 375, 812, 3, 'iPhone X/XS (iOS 13)'],
+            [1656, 3332, 3584, 1656, 414, 896, 3, 'iPhone XS Max (iOS 13)'],
+        ];
+
+        const specs = scream.isIOS13() ? specsIOS13 : specsPreIOS13;
         index = specs.length;
 
         while (index--) {
