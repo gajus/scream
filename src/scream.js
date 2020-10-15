@@ -15,6 +15,71 @@ export default (config: ConfigType = {}): Object => {
     const scream = {};
     const eventEmitter = Sister();
 
+    const deviceSpecsByOS = new Map<number, Array>([
+        [
+            0, // Default - pre iOS13 device specs
+            [
+                [1280, 1762, 1920, 1280, 320, 480, 2, 'iPhone 4/4s'],
+                [1280, 2114, 2272, 1280, 320, 568, 2, 'iPhone 5/5c/5s/SE and 6/6s (Zoomed)'],
+                [1500, 2510, 2668, 1500, 375, 667, 2, 'iPhone 6/6s/7/8'],
+                [1656, 2785, 2944, 1656, 414, 736, 3, 'iPhone 6+/6s+/7+/8+'],
+                [1500, 2509, 2668, 1500, 375, 667, 3, 'iPhone 6+/6s+/7+/8+ (Zoomed)'],
+
+                [3072, 3936, 4096, 2912, 768, 1024, 1, 'iPad 2'],
+                [3072, 3938, 4096, 2914, 768, 1024, 2, 'iPad Air/Retina/Pro (9.7-inch)'],
+                [3336, 4290, 4448, 3178, 834, 1112, 2, 'iPad Pro (10.5-inch)'],
+                [3336, 4602, 4776, 3162, 834, 1194, 2, 'iPad Pro (11-inch)'],
+                [4096, 5306, 5464, 3938, 1024, 1366, 2, 'iPad Pro (12.9-inch)'],
+                [4096, 5290, 5464, 3922, 1024, 1366, 2, 'iPad Pro (12.9-inch) 3rd generation'],
+
+                [1656, 3330, 3584, 1656, 414, 896, 2, 'iPhone XR'],
+                [1500, 2993, 3248, 1500, 375, 812, 3, 'iPhone X/XS'],
+                [1656, 3329, 3584, 1656, 414, 896, 3, 'iPhone XS Max'],
+            ]
+        ],
+        [
+            13,
+            [
+                [1280, 1764, 1920, 1280, 320, 480, 2, 'iPhone 4/4s (iOS 13)'],
+                [1280, 2116, 2272, 1280, 320, 568, 2, 'iPhone 5/5c/5s/SE and 6/6s (Zoomed) (iOS 13)'],
+                [1500, 2512, 2668, 1500, 375, 667, 2, 'iPhone 6/6s/7/8 (iOS 13)'],
+                [1656, 2788, 2944, 1656, 414, 736, 3, 'iPhone 6+/6s+/7+/8+ (iOS 13)'],
+                [1500, 2512, 2668, 1500, 375, 667, 3, 'iPhone 6+/6s+/7+/8+ (Zoomed) (iOS 13)'],
+
+                [3072, 3940, 4096, 3166, 768, 1024, 2, 'iPad Air/Retina/Pro (9.7-inch) (iOS 13)'],
+                [3336, 4276, 4448, 3164, 834, 1112, 2, 'iPad Pro (10.5-inch) (iOS 13)'],
+                [3336, 4604, 4776, 3164, 834, 1194, 2, 'iPad Pro (11-inch) (iOS 13)'],
+                [4096, 5308, 5464, 3940, 1024, 1366, 2, 'iPad Pro (12.9-inch) (iOS 13)'],
+                [4096, 5292, 5464, 3924, 1024, 1366, 2, 'iPad Pro (12.9-inch) 3rd generation (iOS 13)'],
+
+                [1656, 3332, 3584, 1656, 414, 896, 2, 'iPhone XR (iOS 13)'],
+                [1500, 2996, 3248, 1500, 375, 812, 3, 'iPhone X/XS (iOS 13)'],
+                [1656, 3332, 3584, 1656, 414, 896, 3, 'iPhone XS Max (iOS 13)'],
+            ]
+        ],
+        [
+            14,
+            [
+                [1280, 1764, 1920, 1280, 320, 480, 2, 'iPhone 4/4s (iOS 14)'],
+                [1280, 2116, 2272, 1280, 320, 568, 2, 'iPhone 5/5c/5s/SE and 6/6s (Zoomed) (iOS 14)'],
+                [1500, 2512, 2668, 1500, 375, 667, 2, 'iPhone 6/6s/7/8/SE2 (iOS 14)'],
+                [1656, 2788, 2944, 1656, 414, 736, 3, 'iPhone 6+/6s+/7+/8+ (iOS 14)'],
+                [1500, 2512, 2668, 1500, 375, 667, 3, 'iPhone 6+/6s+/7+/8+ (Zoomed) (iOS 14)'],
+
+                [3072, 3940, 4096, 3166, 768, 1024, 2, 'iPad Air/Retina/Pro (9.7-inch) (iOS 14)'],
+                [3336, 4276, 4448, 3164, 834, 1112, 2, 'iPad Pro (10.5-inch) (iOS 14)'],
+                [3336, 4604, 4448, 3048, 834, 1194, 2, 'iPad Pro (11-inch) (iOS 14)'],
+                [4096, 5264, 4320, 3175, 810, 1080, 2, 'iPad 8th generation (iOS 14)'],
+                [4096, 5308, 5464, 3940, 1024, 1366, 2, 'iPad Pro (12.9-inch) (iOS 14)'],
+                [4096, 5292, 5464, 3924, 1024, 1366, 2, 'iPad Pro (12.9-inch) 3rd generation (iOS 14)'],
+
+                [1656, 3316, 3584, 1656, 414, 896, 2, 'iPhone XR (iOS 14)'],
+                [1500, 2996, 3248, 1500, 375, 812, 3, 'iPhone X/XS/11/11 Pro (iOS 14)'],
+                [1656, 3332, 3584, 1656, 414, 896, 3, 'iPhone XS Max/11 Pro Max (iOS 14)'],
+            ]
+        ]
+    ]);
+
     config.width = config.width || {};
 
     if (!config.width.portrait) {
@@ -30,17 +95,19 @@ export default (config: ConfigType = {}): Object => {
     }
 
     /**
-     * Detects if iOS version equals 13
-     * Only works for iPhone.
-     * @see https://forums.developer.apple.com/thread/119186
+     * Detects iOS version
      */
-    scream.isIOS13 = () => {
-      if (/iP(hone|od|ad)/.test(navigator.platform)) {
-        const v = navigator.appVersion.match(/OS (\d+)_(\d+)_?(\d+)?/);
-        return parseInt(v[1]) === 13;
-      }
+    scream.getIOSVersion = () => {
+        if (/iP(hone|od|ad)/.test(navigator.platform)) {
+            const v = navigator.appVersion.match(/OS (\d+)_(\d+)_?(\d+)?/);
+            return parseInt(v[1]);
+        }
 
-      return false;
+        // Detect iPadOS
+        if(navigator.maxTouchPoints && navigator.maxTouchPoints > 2 && /MacIntel/.test(navigator.platform)) {
+            const iPadV = navigator.appVersion.match(/Version\/(\d+).(\d+)/);
+            return parseInt(iPadV[1]);
+        }
     };
 
     /**
@@ -162,44 +229,13 @@ export default (config: ConfigType = {}): Object => {
         let index,
             spec;
 
-        const specsPreIOS13 = [
-            [1280, 1762, 1920, 1280, 320, 480, 2, 'iPhone 4/4s'],
-            [1280, 2114, 2272, 1280, 320, 568, 2, 'iPhone 5/5c/5s/SE and 6/6s (Zoomed)'],
-            [1500, 2510, 2668, 1500, 375, 667, 2, 'iPhone 6/6s/7/8'],
-            [1656, 2785, 2944, 1656, 414, 736, 3, 'iPhone 6+/6s+/7+/8+'],
-            [1500, 2509, 2668, 1500, 375, 667, 3, 'iPhone 6+/6s+/7+/8+ (Zoomed)'],
+        const iOSVersion = scream.getIOSVersion();
+        const latestDefinedSpecOS = Array.from(deviceSpecsByOS.keys()).reduce((acc, key) => Math.max(acc, key), 0);
+        const defaultSpec = iOSVersion > latestDefinedSpecOS ? deviceSpecsByOS.get(latestDefinedSpecOS) : deviceSpecsByOS.get(0);
+        const specs = deviceSpecsByOS.has(iOSVersion)
+            ? deviceSpecsByOS.get(iOSVersion)
+            : defaultSpec;
 
-            [3072, 3936, 4096, 2912, 768, 1024, 1, 'iPad 2'],
-            [3072, 3938, 4096, 2914, 768, 1024, 2, 'iPad Air/Retina/Pro (9.7-inch)'],
-            [3336, 4290, 4448, 3178, 834, 1112, 2, 'iPad Pro (10.5-inch)'],
-            [3336, 4602, 4776, 3162, 834, 1194, 2, 'iPad Pro (11-inch)'],
-            [4096, 5306, 5464, 3938, 1024, 1366, 2, 'iPad Pro (12.9-inch)'],
-            [4096, 5290, 5464, 3922, 1024, 1366, 2, 'iPad Pro (12.9-inch) 3rd generation'],
-
-            [1656, 3330, 3584, 1656, 414, 896, 2, 'iPhone XR'],
-            [1500, 2993, 3248, 1500, 375, 812, 3, 'iPhone X/XS'],
-            [1656, 3329, 3584, 1656, 414, 896, 3, 'iPhone XS Max'],
-        ];
-
-        const specsIOS13 = [
-            [1280, 1764, 1920, 1280, 320, 480, 2, 'iPhone 4/4s (iOS 13)'],
-            [1280, 2116, 2272, 1280, 320, 568, 2, 'iPhone 5/5c/5s/SE and 6/6s (Zoomed) (iOS 13)'],
-            [1500, 2512, 2668, 1500, 375, 667, 2, 'iPhone 6/6s/7/8 (iOS 13)'],
-            [1656, 2788, 2944, 1656, 414, 736, 3, 'iPhone 6+/6s+/7+/8+ (iOS 13)'],
-            [1500, 2512, 2668, 1500, 375, 667, 3, 'iPhone 6+/6s+/7+/8+ (Zoomed) (iOS 13)'],
-
-            [3072, 3940, 4096, 3166, 768, 1024, 2, 'iPad Air/Retina/Pro (9.7-inch) (iOS 13)'],
-            [3336, 4276, 4448, 3164, 834, 1112, 2, 'iPad Pro (10.5-inch) (iOS 13)'],
-            [3336, 4604, 4776, 3164, 834, 1194, 2, 'iPad Pro (11-inch) (iOS 13)'],
-            [4096, 5308, 5464, 3940, 1024, 1366, 2, 'iPad Pro (12.9-inch) (iOS 13)'],
-            [4096, 5292, 5464, 3924, 1024, 1366, 2, 'iPad Pro (12.9-inch) 3rd generation (iOS 13)'],
-
-            [1656, 3332, 3584, 1656, 414, 896, 2, 'iPhone XR (iOS 13)'],
-            [1500, 2996, 3248, 1500, 375, 812, 3, 'iPhone X/XS (iOS 13)'],
-            [1656, 3332, 3584, 1656, 414, 896, 3, 'iPhone XS Max (iOS 13)'],
-        ];
-
-        const specs = scream.isIOS13() ? specsIOS13 : specsPreIOS13;
         index = specs.length;
 
         while (index--) {
