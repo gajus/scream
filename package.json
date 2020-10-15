@@ -24,7 +24,6 @@
   },
   "version": "2.7.0",
   "main": "./dist/scream.js",
-  "types": "@types/index.d.ts",
   "repository": {
     "type": "git",
     "url": "https://github.com/gajus/scream"
