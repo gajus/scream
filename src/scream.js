@@ -3,19 +3,11 @@ import OrientationChangeEnd from 'orientationchangeend';
 
 const OCE = OrientationChangeEnd();
 
-type ConfigType = {
-    viewport: ?boolean,
-    width: {
-        portrait: ?number,
-        landscape: ?number
-    }
-};
-
-export default (config: ConfigType = {}): Object => {
+export default (config = {}) => {
     const scream = {};
     const eventEmitter = Sister();
 
-    const deviceSpecsByOS = new Map<number, Array>([
+    const deviceSpecsByOS = new Map([
         [
             0, // Default - pre iOS13 device specs
             [
