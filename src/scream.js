@@ -32,9 +32,8 @@ export default (config = {}) => {
         [
             13,
             [
-                [1280, 1764, 1920, 1280, 320, 480, 2, 'iPhone 4/4s (iOS 13)'],
                 [1280, 2116, 2272, 1280, 320, 568, 2, 'iPhone 5/5c/5s/SE and 6/6s (Zoomed) (iOS 13)'],
-                [1500, 2512, 2668, 1500, 375, 667, 2, 'iPhone 6/6s/7/8 (iOS 13)'],
+                [1500, 2512, 2668, 1500, 375, 667, 2, 'iPhone 6/6s/7/8/SE2 (iOS 13)'],
                 [1656, 2788, 2944, 1656, 414, 736, 3, 'iPhone 6+/6s+/7+/8+ (iOS 13)'],
                 [1500, 2512, 2668, 1500, 375, 667, 3, 'iPhone 6+/6s+/7+/8+ (Zoomed) (iOS 13)'],
 
@@ -44,15 +43,14 @@ export default (config = {}) => {
                 [4096, 5308, 5464, 3940, 1024, 1366, 2, 'iPad Pro (12.9-inch) (iOS 13)'],
                 [4096, 5292, 5464, 3924, 1024, 1366, 2, 'iPad Pro (12.9-inch) 3rd generation (iOS 13)'],
 
-                [1656, 3332, 3584, 1656, 414, 896, 2, 'iPhone XR (iOS 13)'],
-                [1500, 2996, 3248, 1500, 375, 812, 3, 'iPhone X/XS (iOS 13)'],
-                [1656, 3332, 3584, 1656, 414, 896, 3, 'iPhone XS Max (iOS 13)'],
+                [1656, 3332, 3584, 1656, 414, 896, 2, 'iPhone XR/11 (iOS 13)'],
+                [1500, 2996, 3248, 1500, 375, 812, 3, 'iPhone X/XS/11 Pro (iOS 13)'],
+                [1656, 3332, 3584, 1656, 414, 896, 3, 'iPhone XS Max/11 Pro Max (iOS 13)'],
             ]
         ],
         [
             14,
             [
-                [1280, 1764, 1920, 1280, 320, 480, 2, 'iPhone 4/4s (iOS 14)'],
                 [1280, 2116, 2272, 1280, 320, 568, 2, 'iPhone 5/5c/5s/SE and 6/6s (Zoomed) (iOS 14)'],
                 [1500, 2512, 2668, 1500, 375, 667, 2, 'iPhone 6/6s/7/8/SE2 (iOS 14)'],
                 [1656, 2788, 2944, 1656, 414, 736, 3, 'iPhone 6+/6s+/7+/8+ (iOS 14)'],
@@ -65,9 +63,13 @@ export default (config = {}) => {
                 [4096, 5308, 5464, 3940, 1024, 1366, 2, 'iPad Pro (12.9-inch) (iOS 14)'],
                 [4096, 5292, 5464, 3924, 1024, 1366, 2, 'iPad Pro (12.9-inch) 3rd generation (iOS 14)'],
 
-                [1656, 3316, 3584, 1656, 414, 896, 2, 'iPhone XR (iOS 14)'],
-                [1500, 2996, 3248, 1500, 375, 812, 3, 'iPhone X/XS/11/11 Pro (iOS 14)'],
+                [1656, 3316, 3584, 1656, 414, 896, 2, 'iPhone XR/11 (iOS 14)'],
+                [1500, 2996, 3248, 1500, 375, 812, 3, 'iPhone X/XS/11 Pro (iOS 14)'],
                 [1656, 3332, 3584, 1656, 414, 896, 3, 'iPhone XS Max/11 Pro Max (iOS 14)'],
+
+                [1560, 3112, 3376, 1560, 390, 844, 3, "iPhone 12/12 Pro"],
+                [1500, 2972, 3248, 1500, 375, 812, 3, "iPhone 12 mini"],
+                [1712, 3440, 3704, 1712, 428, 926, 3, "iPhone 12 Pro Max"]
             ]
         ]
     ]);
@@ -231,12 +233,22 @@ export default (config = {}) => {
         index = specs.length;
 
         while (index--) {
-            if (window.screen.width === specs[index][4] &&
-                window.screen.height === specs[index][5] &&
-                window.devicePixelRatio === specs[index][6]) {
-                spec = specs[index];
-
-                break;
+            const currentSpec = specs[index];
+            if (window.screen.width === currentSpec[4] &&
+              window.screen.height === scurrentSpec[5] &&
+              window.devicePixelRatio === currentSpec[6]
+            ) {
+                if (currentSpec[7] === "iPhone 12 mini") {
+                    // workaround for iPhone 12 mini (hello Apple)
+                    // because it has the same screen sizes and devicePixelRatio as iPhone X/XS/11 Pro
+                    if (window.innerHeight >= 629 && window.innerHeight <= 743) {
+                        spec = currentSpecs;
+                        break;
+                    }
+                } else {
+                    spec = currentSpec;
+                    break;
+                }
             }
         }
 
