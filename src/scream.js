@@ -242,7 +242,7 @@ export default (config = {}) => {
                     // workaround for iPhone 12 mini (hello Apple)
                     // because it has the same screen sizes and devicePixelRatio as iPhone X/XS/11 Pro
                     if (window.innerHeight >= 629 && window.innerHeight <= 743) {
-                        spec = currentSpecs;
+                        spec = currentSpec;
                         break;
                     }
                 } else {
