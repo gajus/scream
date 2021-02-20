@@ -235,14 +235,14 @@ export default (config = {}) => {
         while (index--) {
             const currentSpec = specs[index];
             if (window.screen.width === currentSpec[4] &&
-              window.screen.height === scurrentSpec[5] &&
+              window.screen.height === currentSpec[5] &&
               window.devicePixelRatio === currentSpec[6]
             ) {
                 if (currentSpec[7] === "iPhone 12 mini") {
                     // workaround for iPhone 12 mini (hello Apple)
                     // because it has the same screen sizes and devicePixelRatio as iPhone X/XS/11 Pro
                     if (window.innerHeight >= 629 && window.innerHeight <= 743) {
-                        spec = currentSpecs;
+                        spec = currentSpec;
                         break;
                     }
                 } else {
